@@ -1,6 +1,2 @@
-# This is the Assignments Repositry of
-```
-Shashank
-Surya
-Novil
-```
+# This is the Assignments Repositry
+

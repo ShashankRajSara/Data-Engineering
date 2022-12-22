@@ -102,24 +102,16 @@ the employee_id column does not contain any duplicate value at the time of inser
  column job_id of jobs table, can contain only those values which are exists in the jobs table. The InnoDB Engine have been used to create the tables.
   The specialty of the statement is that, The ON DELETE NO ACTION and the ON UPDATE NO ACTION actions will reject the deletion and any updates.
   */
+DROP TABLE IF EXISTS `employees`;
 
-CREATE TABLE employees(
-    `employee_id` int NOT NULL,
-    `first_name` varchar NOT NULL,
-    `last_name` varchar NOT NULL,
-    `job_id` varchar NOT NULL,
+CREATE TABLE IF NOT EXISTS employees(
+    `employee_id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+    `first_name` varchar(30) NOT NULL,
+    `last_name` varchar(30) DEFAULT NULL,
+    `job_id` INT UNSIGNED NOT NULL,
     `salary` int NOT NULL,
-    PRIMARY KEY (`employee_id`),
-    UNIQUE KEY `employee_id` (`employee_id`),
-    UNIQUE KEY `first_name` (`first_name`, `last_name`),
-    UNIQUE KEY `job_id` (`job_id`),
-    UNIQUE KEY `employee_id` (`employee_id`)
+    CONSTRAINT `PK_employees` PRIMARY KEY (`employee_id`)
 
 )ENGINE=InnoDB;
 
-
-
-
-New Clone created;
-
-git through terminal;
+ALTER TABLE `employees` ADD CONSTRAINT `FK_jobs_employees` FOREIGN KEY (`job_id`) REFERENCES `jobs` (`jobs_id`) ON DELETE NO ACTION ON UPDATE NO ACTION; 
