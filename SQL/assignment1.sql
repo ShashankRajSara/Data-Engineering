@@ -120,6 +120,6 @@ CREATE TABLE employees(
 
 
 
-
+New Clone created;
 
   
