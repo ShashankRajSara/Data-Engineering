@@ -122,4 +122,4 @@ CREATE TABLE employees(
 
 New Clone created;
 
-  
+git through terminal;
