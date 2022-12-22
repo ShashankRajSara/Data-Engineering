@@ -1,2 +1,2 @@
-# This is the Futurense Repositry
+# This is the Futurense Repository
 
