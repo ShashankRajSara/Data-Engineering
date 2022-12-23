@@ -115,3 +115,5 @@ CREATE TABLE IF NOT EXISTS employees(
 )ENGINE=InnoDB;
 
 ALTER TABLE `employees` ADD CONSTRAINT `FK_jobs_employees` FOREIGN KEY (`job_id`) REFERENCES `jobs` (`jobs_id`) ON DELETE NO ACTION ON UPDATE NO ACTION; 
+
+
