@@ -1,0 +1,30 @@
+-NULL
+    NULL values are not 0 or BLANK
+    It represents Unknown values
+    use IS NULL or IS NOT NULL to retrive NULL values
+
+-Database Architecture (3 Level Architecture)
+
+    External Level (Individual User View)
+                    v
+    Conceptual Level (community user view)
+                    v
+    Internal level (storage view)
+                    v
+                 Database
+
+-INSERT
+    --Default order => INSERT INTO COMPANY_NEW VALUES (1, 'WIPRO');
+    --Changed Order => INSERT INTO COMPANY_NEW(compname,compid) VALUES ('TCS',2);
+    --Multiple Rows => INSERT INTO COMPANY_NEW VALUES (3,'ORACLE'),(4,'INFOSYS'),(5,'SG'),(6,'CTS');
+    --Using SET variable => SET @v1=7, @v2='emc2'; INSERT INTO company_new values (@v1,@v2);
+    --Inserting NULL => Omit the column(INSERT INTO company_new(compid) VALUES (9);) , Explicitly use NULL (INSERT INTO company_new VALUES (8,NULL);)
+    --Copying rows from other table => INSERT INTO company_new SELECT col1,col2 FROM <Tablename> ==VALUES Keyword is not present in this Command==
+    --Explicitly Default => INSERT INTO default_tab VALUES(201,DEFAULT);
+
+-UPDATE => Modifying existing Rows
+    --Syntax: UPDATE <tablename> SET col1=value1,col2=value2 WHERE <condition>
+    --
+
+
+
