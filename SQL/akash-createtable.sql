@@ -1,3 +1,4 @@
+-- Active: 1671688949427@@127.0.0.1@3308@profile_maker
 --To create a database with a proper character set and collation
 CREATE DATABASE IF NOT EXISTS profile_maker CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -56,6 +57,7 @@ CREATE TABLE `user_skills` (
   UNIQUE INDEX `IX_userskills_userId_skillId` (`userId`, `skillId`)
 ) ENGINE=InnoDB;
 
+show indexes from users;
 --Note
 /* If the table has a multiple-column index, 
   any leftmost prefix of the index can be used by the optimizer to look up rows. 
@@ -122,6 +124,8 @@ INSERT INTO
             (null, 'jQuery'), 
             (null, 'MySQL'), 
             (null, 'PHP');
+
+
 
 --Inserting records into `user_skills` table
 INSERT INTO `user_skills` VALUES(null, 1, 1);
