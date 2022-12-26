@@ -1,0 +1,9 @@
+- *Amazon EKS* is a fully managed Kubernetes service. 
+    Kubernetes is open-source software that enables you to deploy and manage containerized 
+    applications at scale.
+
+- *AWS Lambda* is a service that lets you run code without provisioning or managing servers.
+- *Amazon Simple Queue Service (Amazon SQS)* is a service that enables you to send, store, and 
+    receive messages between software components through a queue.
+- *Amazon Simple Notification Service (Amazon SNS)* is a publish/subscribe service. Using Amazon 
+    SNS topics, a publisher publishes messages to subscribers.
