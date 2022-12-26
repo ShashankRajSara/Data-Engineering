@@ -43,9 +43,14 @@
 
 - Normal Forms:
     - 1 NF:
-        - 
+        - Eliminate repeating groups
+        - ensures atomic values
     - 2 NF
     - 3 NF
+
+- Constraints can be defined at 2 levels
+    - Column Level
+    - Table level
 
 ==============================================================================
 -NULL
