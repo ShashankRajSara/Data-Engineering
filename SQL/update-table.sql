@@ -2,3 +2,7 @@
 
 UPDATE company_new SET compname='EY' WHERE compid=7;
 
+show tables;
+
+
+

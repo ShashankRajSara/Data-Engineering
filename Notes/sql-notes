@@ -52,7 +52,89 @@
     - Column Level
     - Table level
 
-==============================================================================
+==============================================================
+**SELECT**
+
+- *DISTINCT* => 
+    - Eliminates Duplicates
+    - Applied only on 1st column, based upon 1st column 2nd column having duplicates
+    - we can use distinct only once in the SELECT Statement
+    - Single column must be given to DISTINCT
+
+- *COLUMN ALIASING:*
+    - To change display headings
+    - 3 Ways:
+        - ENAME "empname" 
+        - ENAME AS "empname"
+        - ENAME empname
+
+- *SET:* Define a Variable and assign value to it
+    - SET @v1=20;
+    - SET @v2=3000, @v4=5000;
+
+- *ORDER BY;*
+    - To Sort the data
+    - Ways:
+        - ORDER BY ename;
+        - ORDER BY ename asc;
+        - ORDER BY ename DESC;
+        - ORDER BY <COLUMN N0>
+        - ORDER BY 'ALIAS'  => *MySQL Does not Give As ANTICIPATED*
+        - ORDER BY ALIAS => MySQL ORDERs
+
+- *LIMIT:*
+    - Limits the number of rows for Display
+    - LIMIT(x,y)  => Skip x and show y records
+
+- **SQL Functions:**
+    - Single-Row Functions => Character, Numer, Date & Control Functions
+    - Multiple-Row Functions 
+
+- Character Functions:
+    - CONCAT()
+    - UPPER()
+    - LOWER()
+    - SUBSTR('str')
+    - SUBSTR('str',1) => From first position remaining will be displayed
+    - SUBSTR('str',1,3) => from 1st position upto a length of 3
+    - INSTR('str',3) => Position of the Specified characted => ONLY THE FIRST OCCURANCE
+    - LEFT/RIGHT => Displays Starting FROM Left/Right 
+    - TRIM()    => SELECT TRIM('h' FROM 'helloh');
+    - REPLACE(str,'a','b') => 
+    - LPAD/RPAD - left/right padding the giving character to specified length
+    - REPEAT('str',10) => repeating str 10 times
+    - REVERSE()
+
+*No of A's in the String*
+SELECT  LENGTH("MARY HAD A LITTILE LAMB")-LENGTH(REPLACE("MARY HAD A LITTILE LAMB",'A',''));
+
+
+- NUMBER Functions:
+    - MOD(num,1) => Modulus Function
+    - SIGN(A-B) => A>B = 1 , A=B 0, A<B = -1;
+    - CHAR
+    - ROUND
+    - TRUNCATE
+    - CEIL
+    - FLOOR
+
+==========================================
+DATE FUNCTIONS
+
+- Returning Current Date and Time
+- Returning Date& Time Parts
+- Modifying Dates
+- Returning Difference between dates
+
+
+
+
+
+
+
+
+
+================
 -NULL
     --NULL values are not 0 or BLANK
     --It represents Unknown values
