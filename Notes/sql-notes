@@ -121,12 +121,36 @@ SELECT  LENGTH("MARY HAD A LITTILE LAMB")-LENGTH(REPLACE("MARY HAD A LITTILE LAM
 ==========================================
 DATE FUNCTIONS
 
-- Returning Current Date and Time
+- Returning Current Date and Time 
+    - CURDATE()
+    - CURRENT_DATE
+    - NOW()
+    - CURRENT_TIMESTAMP
+    - SYSDATE()
 - Returning Date& Time Parts
+    - DATE()
+    - TIME()
+    - YEAR()
+    - MONTH()
+    - MONTHNAME()
+    - DAY()
+    - DAYNAME()
+    - HOUR()
+    - MI()
+    - QUARTER()
 - Modifying Dates
 - Returning Difference between dates
 
-
+**DATE-FORMAT**
+-  %a => 3 letter day
+-  %W => Whole day
+-  %b => 3 letter month
+-  %M => full month
+-  %y => 2 digits
+-  %Y => 4 digits
+-  %d => day count in month
+-  %w => day count in a week
+-  %j => day count in a year
 
 
 
