@@ -272,3 +272,42 @@ GROUP BY YEAR(hiredate), QUARTER(`HIREDATE`);
 SELECT MONTHNAME(hiredate) AS month, COUNT(empno) 'SUM of EMP' FROM emp
 GROUP BY MONTHNAME(hiredate), DATE_FORMAT(`HIREDATE`,'%m')
 ORDER BY DATE_FORMAT(`HIREDATE`,'%m');
+
+SELECT DATE_FORMAT(CURDATE(),'%m');
+
+--Question
+
+SELECT JOB, 
+    CASE Job WHEN 'CLERK' THEN COUNT(empno)
+            WHEN 'SALESMAN' THEN MAX(sal)
+            WHEN 'ANALYST' THEN SUM(sal)
+            ELSE ROUND(AVG(sal))
+            END
+            FROM emp
+            GROUP BY job;
+
+
+--find out no of employees who are taking same salaries
+
+SELECT SAL,COUNT(empno) FROM emp 
+GROUP BY sal
+HAVING COUNT(empno)>1;
+
+
+--List average salary for all departments employing more than five people
+SELECT deptno, ROUND(AVG(sal)), COUNT(*) FROM emp
+Group BY deptno
+HAVING COUNT(*)>5;
+
+--8. List Jobs of all the employees where maximum salary is greater than or equal to 3000
+SELECT JOB,MAX(sal) FROM emp GROUP by `JOB`
+HAVING max(sal)>=3000;
+
+--9. List the total salar
+SELECT JOB, SUM(Sal) 'Total SAL', MAX(sal), min(Sal), AVG(sal)
+FROM emp
+WHERE `DEPTNO`=20
+GROUP BY `JOB`
+HAVING avg(sal)>1000;
+
+SELECT SIGN(5);
