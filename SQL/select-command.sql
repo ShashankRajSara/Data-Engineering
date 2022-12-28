@@ -162,3 +162,113 @@ SELECT DATE_FORMAT(CONCAT(YEAR(SYSDATE()),'-12-31'),'%j');
 
 select * from emp order by comm;
 
+SELECT hiredate, DATE_FORMAT(hiredate,'%D') FROM EMP;
+
+SELECT hiredate, DATE_FORMAT(hiredate,'%d') FROM EMP;
+
+SELECT ename,`HIREDATE`  FROM emp WHERE DAYNAME(hiredate) = 'Thursday' AND DATE_FORMAT(hiredate,'%d') <7;
+
+--SHOW: ename joined on 17th, Wednesday December 1980
+SELECT CONCAT(ename, ' joined on ', DATE_FORMAT(hiredate,'%D'),', ', DAYNAME(hiredate),' ',MONTHNAME(`HIREDATE`),' ', YEAR(`HIREDATE`))
+FROM emp;
+
+
+--extract
+
+select hiredate,extract(day from hiredate) from emp;
+
+--Return Date Difference 
+SELECT DATEDIFF(CURDATE(),`HIREDATE`) FROM emp;
+SELECT TIMESTAMPDIFF(YEAR,hiredate,CURDATE()) FROM emp;
+
+--Display years, months and days from your DOB  
+SET @dob='1999-12-29';
+SELECT CONCAT(TIMESTAMPDIFF(YEAR,@dob,CURDATE())," Years, ", MOD(TIMESTAMPDIFF(MONTH,@dob,CURDATE()),12),' Months, ',DAY(CURDATE())-DATE_FORMAT(@dob,'%d'),' Days' );
+
+SELECT DAY(CURDATE())-(DATE_FORMAT(@dob,'%d'));
+
+
+-- Modifying Dates  
+
+SELECT DATE_ADD(CURDATE(), INTERVAL '1' YEAR) 'ADD1YEAR',
+        DATE_SUB(CURDATE(), INTERVAL '2' MONTH) 'Deduct 2 Months';
+
+SELECT LAST_DAY(CURDATE());
+
+SELECT LAST_DAY(hiredate) FROM emp;
+
+SELECT MAKEDATE(2020,61);
+
+-- IF CONDITION
+
+SELECT ENAME, SAL, IF(SAL>2500,'GOOD SAL','LOW SAL') 'COMMENTS' FROM emp; 
+
+-- CASE
+
+SELECT ename, sal, job,
+    (CASE WHEN JOB='CLERK' THEN 1.75*Sal 
+            WHEN JOB='SALESMAN' THEN 2*SAL
+            WHEN JOB='Analyst' THEN 1.75*SAL
+            ELSE SAL 
+            END) 'BONUS'
+
+    FROM emp ORDER BY 3;
+
+    SELECT ename, sal, job,
+    (CASE JOB WHEN 'CLERK' THEN 1.5*Sal 
+            WHEN 'SALESMAN' THEN 2*SAL
+            WHEN 'Analyst' THEN 1.75*SAL
+            ELSE SAL 
+            END) 'BONUS'
+
+    FROM emp ORDER BY 3;
+
+-- Question
+SELECT CASE DAY(curdate()) 
+    WHEN 28 THEN REPEAT('HappyBirthday ',5)
+    WHEN 27 THEN REPEAT('BelatedBirthday',2)
+    ELSE 'Advance Happy Birthday' 
+    END;
+
+--NULLIF
+SELECT ename,LENGTH(ename), SAL, LENGTH(SAL), NULLIF(LENGTH(ename),LENGTH(sal)) 'NULLIF'
+FROM emp ORDER by 2;
+
+--IFNULL
+SELECT ename,sal,comm, sal+comm,IFNULL(sal+comm,Sal) 'IFNULL' FROM emp ORDER BY comm;
+
+-- STR to DATE
+
+SELECT STR_TO_DATE('10th-june-20','%D-%M-%y'),STR_TO_DATE('10-05-2002','%d-%m-%Y');
+
+
+
+--Aggregate FUNCTION
+
+SET @@sql_mode="only_full_group_by";
+
+-- COUNT
+
+SELECT COUNT(*) FROM emp;
+SELECT COUNT(comm) FROM emp;
+
+--Find How many are working as CLERK
+SELECT COUNT(empno) FROM emp WHERE job='clerk';
+
+SELECT max(sal), max(hiredate), max(ename) FROM emp;
+
+SELECT , SUM(sal) FROM emp GROUP BY `DEPTNO`;
+
+-- Find out no of employess joined each YEAR
+SELECT YEAR(hiredate),COUNT(empno) FROM emp
+GROUP BY YEAR(hiredate);
+
+-- Find out no of employess joined each YEAR
+SELECT YEAR(hiredate),QUARTER(hiredate),COUNT(empno) FROM emp
+GROUP BY YEAR(hiredate), QUARTER(`HIREDATE`);
+
+--find out no of employess joined in each month ans sort by MONTH
+
+SELECT MONTHNAME(hiredate) AS month, COUNT(empno) 'SUM of EMP' FROM emp
+GROUP BY MONTHNAME(hiredate), DATE_FORMAT(`HIREDATE`,'%m')
+ORDER BY DATE_FORMAT(`HIREDATE`,'%m');

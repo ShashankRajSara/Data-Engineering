@@ -141,7 +141,7 @@ DATE FUNCTIONS
 - Modifying Dates
 - Returning Difference between dates
 
-**DATE-FORMAT**
+**DATE_FORMAT**
 -  %a => 3 letter day
 -  %W => Whole day
 -  %b => 3 letter month
@@ -152,8 +152,72 @@ DATE FUNCTIONS
 -  %w => day count in a week
 -  %j => day count in a year
 
+- EXTRACT
+    - extract(year from 'date')
+    - extract(month from 'date')
+    - extract(day from 'date')
 
+- Returning Difference
+    - DATEDIFF('date1','date2') => Only two arguments
+    - TIMESTAMPDIFF() => Year, Month, Day
+    - 
 
+- Modifying Dates
+    - DATE_ADD => Years, Months, Days
+    - DATE_SUB => YEARS, Months, Days
+    - INTERVAL '1' Year
+    - SELECT DATE_ADD(CURDATE(), INTERVAL '1' YEAR) 'ADD1YEAR';
+
+- LAST_DAY() => Shows the last day of the Month
+- MAKEDATE() => returns the date, if integers are given
+    - MAKEDATE(YEAR,Days)
+
+- STR_TO_DATE() => String to Date
+
+===========================
+CONTROL FUNCTIONS
+
+- **IF (A,B,C):**
+    - If A is TRUE Returns B else C
+
+- **CASE**
+    -  CASE WHEN <CONDITION> THEN <VAL1>
+        ....
+        ..
+        ELSE <VALN>
+        END
+
+    -     SELECT ename, sal, job,
+    (CASE JOB WHEN 'CLERK' THEN 1.75*Sal 
+            WHEN 'SALESMAN' THEN 2*SAL
+            WHEN 'Analyst' THEN 1.75*SAL
+            ELSE SAL 
+            END) 'BONUS'
+
+    FROM emp ORDER BY 3;
+
+- NULLIF(A,B)
+    - IF A=B Returns NULL Else A
+
+- IFNULL
+    IFNULL(A,B)
+
+===============================
+**Aggregate Functions**
+
+SET @@sql_mode="only_full_group_by";
+
+Also called as Multirow functions or group functions
+
+*AVG & SUM => Only be used for Numeric Data Types*
+
+- COUNT()
+    - COUNT(*) => includes NULL values
+    - COUNT(<column>) => excludes NULL Values 
+- MIN
+- MAX
+- AVG
+- SUM 
 
 
 
