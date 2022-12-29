@@ -311,3 +311,4 @@ GROUP BY `JOB`
 HAVING avg(sal)>1000;
 
 SELECT SIGN(5);
+

@@ -219,6 +219,52 @@ Also called as Multirow functions or group functions
 - AVG
 - SUM 
 
+===========================
+MATH
+
+- SET Operators:
+    - to select Data from similar select statements
+    - No of columns should be same in all select statements
+
+- TYPES:
+    - UNION => Shows Distinct Values
+    - UNION ALL => Shows all the values including Duplicates
+    - INTERSECTION => Common values
+
+- ORDER BY  
+    - It should be used after all select statements
+    - but it workd only for 1st select statement
+
+================================
+
+JOINS - To Select Data from multiple Tables
+
+2 Types of Syntaxes:
+
+Oracle Propritary Syntax                     SQL-99
+====================================================================
+ EQUI                                       INNER JOIN
+ OUTER                                      OUTER(L,R,F)
+ NON EQUI                                   JOIN(Different Tables)
+ CARTESIAN                                  CROSS
+ SELF                                       NATURAL, USING
+
+RULES(SQL-99)
+====================
+1. Column names sould have the format
+    e.ename OR emp.ename
+    d.dname OR dept.dname
+    E,D are called table aliases
+
+2. Type of JOIN to be Specified (INNER, OUTER, NATURAL, CROSS..)
+
+3. Join Condition uses on Clause
+
+4. Additional Conditions will be done Using:
+    - AND operator
+    - WHERE Clause
+
+
 
 
 

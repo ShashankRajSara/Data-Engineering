@@ -109,3 +109,17 @@
     NETWORKING
 =========================
 
+- **Amazon VPC** enables you to provision an isolated section of the AWS Cloud. In this isolated section, you can launch resources in a virtual network that you define. Within a virtual private cloud (VPC), you can organize your resources into subnets. A subnet is a section of a VPC that can contain resources such as Amazon EC2 instances.
+
+- **Internet Gateway** - To allow public traffic from the internet to access your VPC, you attach an internet gateway to the VPC. An internet gateway is a connection between a VPC and the internet. You can think of an internet gateway as being similar to a doorway that customers use to enter the coffee shop. Without an internet gateway, no one can access the resources within your VPC.
+
+- A **virtual private gateway** enables you to establish a virtual private network (VPN) connection between your VPC and a private network, such as an on-premises data center or internal corporate network. A virtual private gateway allows traffic into the VPC only if it is coming from an approved network.
+
+- **AWS Direct Connect** is a service that enables you to establish a dedicated private connection between your data center and a VPC. The private connection that AWS Direct Connect provides helps you to reduce network costs and increase the amount of bandwidth that can travel through your network. *Private Optical cable to Amazon Data Center*  
+
+- A **subnet** is a section of a VPC in which you can group resources based on security or operational needs. Subnets can be public or private.
+- Public subnets contain resources that need to be accessible by the public, such as an online store’s website.
+- Private subnets contain resources that should be accessible only through your private network, such as a database that contains customers’ personal information and order histories. 
+
+- A ***network access control list (ACL)*** is a virtual firewall that controls inbound and outbound traffic at the subnet level.
+
