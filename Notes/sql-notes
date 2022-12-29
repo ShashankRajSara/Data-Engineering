@@ -264,7 +264,9 @@ RULES(SQL-99)
     - AND operator
     - WHERE Clause
 
-
+- INNER JOIN => Uses "=" Operator
+- OUTER JOIN => INNER JOIN + Missing Date
+- NON EQUI => Other than '=' operator for Joining
 
 
 
