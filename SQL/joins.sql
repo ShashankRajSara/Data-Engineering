@@ -8,6 +8,7 @@ FROM emp e
 INNER JOIN dept d
 ON e.`DEPTNO`=d.`DEPTNO`;
 
+
 -- Display above output only for SALES
 SELECT e.ename,d.dname 
 FROM emp e
@@ -67,12 +68,12 @@ FROM employees e JOIN employees e2
 ON e.salary=e2.salary
 AND e.employee_id!=e2.employee_id;
 
-SELECT e1.employee_id, e1.first_name, e1.salary FROM employees e1
+SELECT e1.employee_id, e1.first_name, e1.salary 'emsalary' FROM employees e1
 WHERE e1.salary IN
     (SELECT salary
      FROM employees e2
      WHERE e1.employee_id <> e2.employee_id) 
-ORDER BY e1.salary;
+ORDER BY emsalary;
 
 
 SELECT E1.first_name, E1.Salary
