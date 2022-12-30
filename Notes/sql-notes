@@ -277,6 +277,13 @@ SUB-QUERY
 - SELECT INSIDE SELECT
 - Evaluating Unknown Through Known
 
+TYPES
+- Single Row => Returns 1 Row                   =,<>,<,>
+- Multiple Row => Returns more than 1 Row       IN,NOT IN,ANY,ALL
+- MULTIPLE Column
+- Nested
+- Correlated
+
 RULES for SUBQUERY
 ------------
 1. Sub Query Executes 1st
