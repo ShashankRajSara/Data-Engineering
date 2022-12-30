@@ -69,3 +69,75 @@ SELECT * from employees
 WHERE department_id IN 
 (SELECT department_id FROM employees WHERE first_name IN ('Valli','Lex'));
 
+--find out the department names where no employees are working
+
+SELECT department_name FROM departments
+WHERE department_id NOT IN 
+(SELECT DISTINCT department_id FROM employees WHERE department_id IS NOT NULL);
+
+-- Find Out department_name where no sa_rep working
+
+select DISTINCT job_id from employees;
+
+SELECT * from departments;
+select * from employees;
+
+SELECT department_name FROM departments
+WHERE department_id NOT IN 
+(SELECT DISTINCT department_id FROM employees WHERE job_id ='SA_REP' AND department_id IS NOT NULL);
+
+SELECT DISTINCT department_id FROM employees WHERE job_id ='SA_REP' AND department_id IS NOT NULL;
+
+--Find out employees who joined on '1999-6-21','1997-08-20'
+show tables;
+
+SELECT first_name,hire_date from employees 
+WHERE hire_date > ALL (SELECT hire_date FROM employees WHERE first_name IN ('laura','susan'));
+
+--find out the employees who are taking maximum salaries in each job id
+
+SELECT CONCAT(first_name,' ',last_name) 'Full Name',salary,job_id FROM employees
+WHERE (salary,job_id) IN (SELECT MAX(salary),job_id from employees 
+where job_id IS NOT NULL GROUP BY job_id);
+
+--Find out the job id which is having maximum no of employees
+
+SELECT job_id,MAX(employee_id) FROM employees
+WHERE (salary,job_id) IN (SELECT MAX(salary),job_id from employees 
+where job_id IS NOT NULL GROUP BY job_id);
+
+SELECT job_id,COUNT(employee_id) FROM employees
+GROUP BY job_id;
+
+SELECT job_id, COUNT(job_id)'No of employees'
+FROM employees
+GROUP BY job_id
+HAVING COUNT(job_id) IN (SELECT MAX(a.cnt) FROM (SELECT count(job_id)cnt FROM employees GROUP BY job_id)a);
+
+SELECT CONCAT(first_name,' ',last_name) 'Full Name', job_id
+FROM employees
+WHERE job_id IN (
+SELECT job_id
+FROM employees
+GROUP BY job_id
+HAVING COUNT(job_id) IN (SELECT MAX(a.cnt) FROM (SELECT count(job_id)cnt FROM employees GROUP BY job_id)a));
+
+-- Greater than avg salary from their department
+SELECT first_name,salary, department_id
+FROM employees e
+WHERE salary >(SELECT avg(salary) FROM employees WHERE department_id=e.department_id);
+
+--USING JOINS
+SELECT e.first_name,e.salary, e.department_id,ROUND(a.avsal)
+FROM employees e INNER JOIN (SELECT department_id,avg(salary) avsal
+FROM employees WHERE department_id is NOT NULL GROUP BY department_id)a
+ON e.department_id=a.department_id
+AND e.salary>a.avsal
+ORDER BY 3;
+
+--GROUP CONCAT
+
+SELECT GROUP_CONCAT(first_name), department_id
+FROM employees
+WHERE department_id=60
+GROUP BY department_id;
