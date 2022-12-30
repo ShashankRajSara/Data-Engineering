@@ -258,15 +258,30 @@ RULES(SQL-99)
 
 2. Type of JOIN to be Specified (INNER, OUTER, NATURAL, CROSS..)
 
-3. Join Condition uses on Clause
+3. Join Condition uses ON Clause
 
 4. Additional Conditions will be done Using:
     - AND operator
     - WHERE Clause
 
 - INNER JOIN => Uses "=" Operator
-- OUTER JOIN => INNER JOIN + Missing Date
+- OUTER JOIN => INNER JOIN + Missing Data
 - NON EQUI => Other than '=' operator for Joining
+- NATURAL JOIN => Joined naturally on common columns, No condition should be mentioned. Shouldn't use when there are more than one column column.
+- USING- if column name is same
+
+
+================================
+SUB-QUERY
+
+- SELECT INSIDE SELECT
+- Evaluating Unknown Through Known
+
+RULES for SUBQUERY
+------------
+1. Sub Query Executes 1st
+2. Result Will be used by OUTER query and then gets executed
+3. Sub query should be enclosed in brackets
 
 
 

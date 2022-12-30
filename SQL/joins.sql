@@ -25,7 +25,7 @@ GROUP BY d.dname;
 --OUTER JOIN
 SELECT e.ename,d.dname
 FROM emp e 
-LEFT OUTER JOIN dept d
+CROSS JOIN dept d
 ON e.`DEPTNO`=d.`DEPTNO`;
 
 
@@ -61,7 +61,7 @@ SELECT CONCAT(e.first_name,' ',e.last_name) "Emp Name", CONCAT(m.first_name,' ',
 FROM employees e JOIN employees m
 ON e.manager_id=m.employee_id;
 
-
+USE db_optimised;
 --Same salary as other employees
 SELECT CONCAT(e.first_name,' ',e.last_name) "Emp Name", e.salary
 FROM employees e JOIN employees e2
@@ -92,5 +92,58 @@ WHERE QUARTER(e1.hire_date)<3 AND YEAR(e1.hire_date) IN (Select YEAR(e2.hire_dat
 
 
 
+SELECT ename,sal from emp ORDER BY sal DESC;
+
+SELECT ename,sal from emp
+WHERE sal >= ALL(SELECT sal from emp);
+
+SELECT ename,sal FROM emp e1 WHERE SAL IN ( SELECT sal from emp e2 WHERE e1.`EMPNO`!=e2.`EMPNO`);
+
+SELECT sal from emp e1 JOIN emp e2 ON  WHERE e1.sal=e2.sal;
+
+USE HR;
+SELECT region_name, country_name
+FROM regions NATURAL JOIN Countries;
+
+desc employees;
+
+--NATURAL JOIN
+SELECT first_name,department_name
+from employees NATURAL JOIN departments;
+
+--USING one COLUMN
+SELECT first_name,department_name
+from employees JOIN departments
+USING (department_id);
+
+--USING two COLUMNs 
+SELECT first_name,department_name
+from employees JOIN departments Using (department_id,manager_id);
+
+--SUB QUERY
 
 
+
+--EXAM PRACTISE
+SELECT e1.ename, e1.sal FROM emp e1
+JOIN emp e2
+ON e1.empno!=e2.empno
+AND
+e1.sal=e2.sal;
+
+SELECT DATE_FORMAT(hiredate,'%m') FROM emp;
+
+SELECT dname,hiredate,DATE_FORMAT(hiredate,'%m')
+FROM dept
+INNER JOIN emp
+ON emp.`DEPTNO`=dept.`DEPTNO`
+WHERE DAYNAME(hiredate)='Thursday'
+AND DATE_FORMAT(hiredate,'%d')<=7;
+
+CREATE TABLE odd_even (id int(4),des varchar(4));
+
+INSERT INTO odd_even (id) VALUES (1),(2),(3),(4),(5),(6),(7),(8),(9),(10);
+select * from odd_even;
+
+UPDATE odd_even SET des = 
+ CASE    WHEN MOD(id,2)=0 THEN 'EVEN' ELSE 'ODD' END;
