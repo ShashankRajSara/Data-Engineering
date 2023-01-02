@@ -123,3 +123,13 @@
 
 - A ***network access control list (ACL)*** is a virtual firewall that controls inbound and outbound traffic at the subnet level.
 
+- **Stateless packet filtering** - Network ACLs perform stateless packet filtering. They remember nothing and check packets that 
+    cross  the subnet border each way: inbound and outbound. 
+
+- **Security groups** - A security group is a virtual firewall that controls inbound and outbound traffic for an Amazon EC2 instance.
+
+- **Stateful packet filtering** -  Security groups perform stateful packet filtering. They remember previous decisions made for 
+    incoming packets.
+
+- **Amazon Route 53** is a DNS web service. It gives developers and businesses a reliable way to route end users to internet 
+    applications hosted in AWS. Amazon Route 53 connects user requests to infrastructure running in AWS (such as Amazon EC2 instances and load balancers). It can route users to infrastructure outside of AWS.
