@@ -49,9 +49,11 @@ SELECT MAX(salary),MIN(salary) FROM employees;
 
 -- 10. **Write a query to divide people into three groups based on their salaries**.
 SELECT salary FROM employees
-ORDER BY salary DESC;
+GROUP BY salary;
 
 -- 11. **Select the employees whose first_name contains “an”.**
+
+
 -- 12. **Select employee first name and the corresponding phone number in the format (_ _ _)-(_ _ _)-(_ _ _ _)**.
 -- 13. **Find the employees who joined in August, 1994.**
 -- 14. **Write an SQL query to display employees who earn more than the average salary in that company**
