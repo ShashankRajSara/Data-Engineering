@@ -1,5 +1,3 @@
-
-==============================
     *COMPUTE IN THE CLOUD*
 ==============================
 
@@ -141,5 +139,5 @@
 
 - **Amazon Elastic Block Store** (Amazon EBS) is a service that provides block-level storage volumes that you can use with 
     Amazon EC2 instances. If you stop or terminate an Amazon EC2 instance, all the data on the attached EBS volume remains available. Because EBS volumes are for data that needs to persist, it’s important to back up the data. You can take incremental backups of EBS volumes by creating *Amazon EBS snapshots*.
-    
+
 
