@@ -133,3 +133,13 @@
 
 - **Amazon Route 53** is a DNS web service. It gives developers and businesses a reliable way to route end users to internet 
     applications hosted in AWS. Amazon Route 53 connects user requests to infrastructure running in AWS (such as Amazon EC2 instances and load balancers). It can route users to infrastructure outside of AWS.
+
+
+===================
+- **Strorage**
+===================
+
+- **Amazon Elastic Block Store** (Amazon EBS) is a service that provides block-level storage volumes that you can use with 
+    Amazon EC2 instances. If you stop or terminate an Amazon EC2 instance, all the data on the attached EBS volume remains available. Because EBS volumes are for data that needs to persist, it’s important to back up the data. You can take incremental backups of EBS volumes by creating *Amazon EBS snapshots*.
+    
+
