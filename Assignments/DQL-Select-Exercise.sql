@@ -52,11 +52,16 @@ SELECT salary FROM employees
 GROUP BY salary;
 
 -- 11. **Select the employees whose first_name contains “an”.**
-
+SELECT * FROM employees WHERE first_name LIKE '%an%';
 
 -- 12. **Select employee first name and the corresponding phone number in the format (_ _ _)-(_ _ _)-(_ _ _ _)**.
+SELECT first_name, CONCAT('(',REPLACE(phone_number,'.',')-('),')') 'Phone NUMBER' FROM employees;
+
 -- 13. **Find the employees who joined in August, 1994.**
+SELECT employee_id,first_name,hire_date FROM employees WHERE YEAR(hire_date)=1994 and MONTH(hire_date)=8;
+
 -- 14. **Write an SQL query to display employees who earn more than the average salary in that company**
+SELECT first_name FROM employees;
 -- 15. **Find the maximum salary from each department.**
 -- 16. **Write a SQL query to display the 5 least earning employees**.
 -- 17. **Find the employees hired in the 80s**.
