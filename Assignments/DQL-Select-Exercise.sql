@@ -20,6 +20,11 @@ WHERE salary = (SELECT DISTINCT salary FROM employees ORDER BY salary DESC LIMIT
 SELECT employee_id,first_name,salary FROM employees 
 ORDER BY salary DESC LIMIT 1,3;
 
+SELECT employee_id,first_name,salary FROM employees 
+WHERE `SALARY` NOT IN (SELECT MAX(`SALARY`) FROM employees)
+ORDER BY salary DESC LIMIT 4;
+
+
 -- 5. **Write a query to select employees and their corresponding managers and their salaries**.
 select e1.employee_id,e1.first_name,e1.manager_id 'Manager ID', e2.first_name 'Manager Name',e2.salary 'Manager Salary' 
 FROM employees e1, employees e2
@@ -87,3 +92,4 @@ SELECT e1.department_id,e1.first_name 'Emp Name',e2.department_id,e2.first_name 
 INNER JOIN employees e2
 ON e1.manager_id=e2.employee_id
 AND e1.department_id <> e2.department_id;
+
