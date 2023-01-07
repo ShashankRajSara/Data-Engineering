@@ -77,9 +77,117 @@ FROM Products;
 SELECT MIN(Price) AS SmallestPrice
 FROM Products;
 ```
+- The LIKE operator is used in a WHERE clause to search for a specified pattern in a column.
 
+    - There are two wildcards often used in conjunction with the LIKE operator:
+        - The percent sign (%) represents zero, one, or multiple characters
+        - The underscore sign (_) represents one, single character
+        - The percent sign and the underscore can also be used in combinations!
 
-================ SQL Database ================================================================
+```sql
+SELECT * FROM Customers
+WHERE CustomerName LIKE 'a__%';
+
+SELECT * FROM Customers
+WHERE City LIKE 'L_n_on';
+```
+
+- The IN operator allows you to specify multiple values in a WHERE clause. The IN operator is a shorthand for multiple OR conditions.
+
+```sql
+SELECT * FROM Customers
+WHERE Country NOT IN ('Germany', 'France', 'UK');
+
+SELECT * FROM Customers
+WHERE Country IN (SELECT Country FROM Suppliers);
+```
+
+- The BETWEEN operator selects values within a given range. The values can be numbers, text, or dates. The BETWEEN operator is inclusive: begin and end values are included.
+
+```sql
+SELECT * FROM Orders
+WHERE OrderDate BETWEEN '1996-07-01' AND '1996-07-31';
+
+SELECT * FROM Products
+WHERE ProductName NOT BETWEEN 'Carnarvon Tigers' AND 'Mozzarella di Giovanni'
+ORDER BY ProductName;
+```
+- A *JOIN* clause is used to combine rows from two or more tables, based on a related column between them.
+
+```sql
+SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;
+```
+- JOINs
+    - INNER JOIN: Returns records that have matching values in both tables
+    - LEFT JOIN: Returns all records from the left table, and the matched records from the right table
+    - RIGHT JOIN: Returns all records from the right table, and the matched records from the left table
+    - CROSS JOIN: Returns all records from both tables
+
+```sql
+SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;
+
+SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+CROSS JOIN Orders
+WHERE Customers.CustomerID=Orders.CustomerID;
+
+SELECT column_name(s)
+FROM table1 T1, table1 T2
+WHERE condition;
+```
+- The *UNION* operator is used to combine the result-set of two or more SELECT statements.
+    - Every SELECT statement within UNION must have the same number of columns
+    - The columns must also have similar data types
+    - The columns in every SELECT statement must also be in the same order
+
+```sql
+SELECT City, Country FROM Customers
+WHERE Country='Germany'
+UNION
+SELECT City, Country FROM Suppliers
+WHERE Country='Germany'
+ORDER BY City;
+```
+
+- The MySQL GROUP BY Statement:
+    - The GROUP BY statement groups rows that have the same values into summary rows, like "find the number of customers in each country".
+    - The GROUP BY statement is often used with aggregate functions *(COUNT(), MAX(), MIN(), SUM(), AVG())* to group the result-set by one or more columns.
+
+```sql
+SELECT Shippers.ShipperName, COUNT(Orders.OrderID) AS NumberOfOrders FROM Orders
+LEFT JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID
+GROUP BY ShipperName;
+
+SELECT COUNT(CustomerID), Country
+FROM Customers
+GROUP BY Country
+ORDER BY COUNT(CustomerID) DESC;
+```
+
+- HAVING - The HAVING clause was added to SQL because the WHERE keyword cannot be used with aggregate functions.
+
+```sql
+SELECT Employees.LastName, COUNT(Orders.OrderID) AS NumberOfOrders
+FROM Orders
+INNER JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
+WHERE LastName = 'Davolio' OR LastName = 'Fuller'
+GROUP BY LastName
+HAVING COUNT(Orders.OrderID) > 25;
+```
+
+- EXISTS - The EXISTS operator is used to test for the existence of any record in a subquery. The EXISTS operator returns TRUE if the subquery returns one or more records.
+```sql
+SELECT SupplierName
+FROM Suppliers
+WHERE EXISTS (SELECT ProductName FROM Products WHERE Products.SupplierID = Suppliers.supplierID AND Price = 22);
+
+```
+
+======================================================= SQL DATABASE ================================================================
 
 - The CREATE TABLE statement is used to create a new table in a database.
 ```sql

@@ -1,3 +1,4 @@
+-- Active: 1671688949427@@127.0.0.1@3308@org
 USE org;
 
 DELIMITER //
@@ -13,11 +14,14 @@ BEGIN
             );
 END //
 
+DELIMITER ;
+
 INSERT INTO worker
     VALUES (
-        9, 'Akash', 'Das', 1000, NOW(), 'Account'
+        10, 'Shashank', 'Raj', 5000, NOW(), 'IT'
     );
 
 SHOW TRIGGERS;
 
+SELECT * from title;
 DROP TRIGGER IF EXISTS after_worker_insert;
