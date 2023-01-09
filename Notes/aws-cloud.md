@@ -263,3 +263,92 @@ Module 6: SECURITY
     - Filter logs to assist with operational analysis and troubleshooting
 
 - *AWS Trusted Advisor* is a web service that inspects your AWS environment and provides real-time recommendations in accordance with AWS best practices. Trusted Advisor compares its findings to AWS best practices in five categories: cost optimization, performance, security, fault tolerance, and service limits. For the checks in each category, Trusted Advisor offers a list of recommended actions and additional resources to learn more about AWS best practices. 
+
+===============
+Pricing and Support
+=================
+
+- The AWS Free Tier enables you to begin using certain services without having to worry about incurring costs for the specified period. 
+    - Three types of offers are available: Always Free, 12 Months Free, Trials.
+
+- The *AWS Pricing Calculator* lets you explore AWS services and create an estimate for the cost of your use cases on AWS. You can organize your AWS estimates by groups that you define. A group can reflect how your company is organized, such as providing estimates by cost center.
+
+- Use the AWS Billing & Cost Management dashboard to pay your AWS bill, monitor your usage, and analyze and control your costs.
+
+- AWS Budgets
+
+    - In AWS Budgets, you can create budgets to plan your service usage, service costs, and instance reservations.
+
+    - The information in AWS Budgets updates three times a day. This helps you to accurately determine how close your usage is to your budgeted amounts or to the AWS Free Tier limits.
+
+    - In AWS Budgets, you can also set custom alerts when your usage exceeds (or is forecasted to exceed) the budgeted amount.
+
+- AWS Cost Explorer
+
+    - AWS Cost Explorer is a tool that enables you to visualize, understand, and manage your AWS costs and usage over time.
+
+    - AWS Cost Explorer includes a default report of the costs and usage for your top five cost-accruing AWS services. You can apply custom filters and groups to analyze your data. For example, you can view resource usage at the hourly level.
+
+- AWS Support
+
+    - AWS offers four different Support plans to help you troubleshoot issues, lower costs, and efficiently use AWS services. 
+    - You can choose from the following Support plans to meet your company’s needs: 
+        - Basic
+        - Developer
+        - Business
+        - Enterprise On-Ramp
+        - Enterprise
+
+- *Technical Account Manager (TAM)*
+
+    - The Enterprise On-Ramp and Enterprise Support plans include access to a Technical Account Manager (TAM).
+    - The TAM is your primary point of contact at AWS. If your company subscribes to Enterprise Support or Enterprise On-Ramp, your TAM educates, empowers, and evolves your cloud journey across the full range of AWS services. TAMs provide expert engineering guidance, help you design solutions that efficiently integrate AWS services, assist with cost-effective and resilient architectures, and provide direct access to AWS programs and a broad community of experts.
+
+- *AWS Marketplace* is a digital catalog that includes thousands of software listings from independent software vendors. You can use AWS Marketplace to find, test, and buy software that runs on AWS. For each listing in AWS Marketplace, you can access detailed information on pricing options, available support, and reviews from other AWS customers.
+
+===================
+Migrations
+===================
+
+- *AWS Cloud Adoption Framework* (AWS CAF) organizes guidance into six areas of focus, called Perspectives. Each Perspective addresses distinct responsibilities. The planning process helps the right people across the organization prepare for the changes ahead.
+    - In general, the Business, People, and Governance Perspectives focus on business capabilities, whereas the Platform, Security, and Operations Perspectives focus on technical capabilities.
+
+- 6 strategies for migration, When migrating applications to the cloud, six of the most common migration strategies that you can implement are:
+
+    - Rehosting
+    - Replatforming
+    - Refactoring/re-architecting
+    - Repurchasing
+    - Retaining
+    - Retiring
+
+
+- AWS Snow Family members
+
+    - The AWS Snow Family is a collection of physical devices that help to physically transport up to exabytes of data into and out of AWS. 
+
+    - AWS Snow Family is composed of AWS Snowcone, AWS Snowball, and AWS Snowmobile. 
+
+- The AWS Well-Architected Framework
+
+    - The AWS Well-Architected Framework helps you understand how to design and operate reliable, secure, efficient, and cost-effective systems in the AWS Cloud. It provides a way for you to consistently measure your architecture against best practices and design principles and identify areas for improvement.
+    - The Well-Architected Framework is based on six pillars: 
+        - Operational excellence
+        - Security
+        - Reliability
+        - Performance efficiency
+        - Cost optimization
+        - Sustainability
+
+- Advantages of cloud computing
+
+    - Operating in the AWS Cloud offers many benefits over computing in on-premises or hybrid environments. 
+
+    - In this section, you will learn about six advantages of cloud computing:
+
+        - Trade upfront expense for variable expense.
+        - Benefit from massive economies of scale.
+        - Stop guessing capacity.
+        - Increase speed and agility.
+        - Stop spending money running and maintaining data centers.
+        - Go global in minutes.
