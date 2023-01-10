@@ -314,6 +314,55 @@ RULES for SUBQUERY
     --Syntax: UPDATE <tablename> SET col1=value1,col2=value2 WHERE <condition>
     --
 
+=====================
+DCL
+==============
+GRANT and REVOKE
+
+- Permissions to interact with Database
 
 
+================================================================
+TCL
+---------
 
+- COMMIT and ROLLBACK
+
+START TRANSACTION;
+DML
+ROLLBACK;
+
+- LOCKING
+- DDL & DCL commands will auto commit a Transaction.
+
+================================================================
+
+Difference between DELETE and TRACE 
+
+TRUNCATE                                DELETE
+----------------------------------------------------------------
+- DDL commands                           - DML
+- WHERE Clause can't be used            - WHERE clause can be used
+- NO ROLLBACK                           - ROLLBACK using START TRANSACTION
+
+- DROP - Removes Structure and Data.
+
+
+================================================================
+DDL - DATA Definition Language
+
+CREATE, ALTER, DROP, TRUNCATE 
+
+- ALTER 
+    - ADD COLUMNS, CONSTRAINTS(except NOT NULL)
+    - MODIFY 
+        - NULL TO NOT NULL
+        - CHANGE DATATYPE 
+        - CHANGE SIZE 
+        - CHANGE DEFAULT
+    - RENAME
+        - COLUMNS
+        - TABLE
+    - DROP
+        - COLUMNS
+        - CONSTRAINTS

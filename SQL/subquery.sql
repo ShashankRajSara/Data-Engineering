@@ -141,3 +141,21 @@ SELECT GROUP_CONCAT(first_name), department_id
 FROM employees
 WHERE department_id=60
 GROUP BY department_id;
+
+--Correlated update
+
+CREATE TABLE employee_new
+AS SELECT employee_id,first_name,department_id,job_id FROM employees;
+
+ALTER TABLE employee_new add department_name VARCHAR(35);
+
+SELECT * FROM employee_new;
+
+UPDATE employee_new e SET department_name = 
+(SELECT department_name FROM departments WHERE department_id=e.department_id);
+
+--corelation delete
+DELETE FROM employee_new e
+WHERE job_id IN (SELECT job_id FROM employees 
+WHERE employee_id=e.employee_id AND employee_id=109);
+
