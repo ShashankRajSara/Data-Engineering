@@ -80,3 +80,4 @@ desc default_tab;
 
 ALTER TABLE DEFAULT_tab alter c2 set DEFAULT 9.5;
 
+SELECT last_insert_id() FROM itpl_bak;

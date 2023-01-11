@@ -366,3 +366,100 @@ CREATE, ALTER, DROP, TRUNCATE
     - DROP
         - COLUMNS
         - CONSTRAINTS
+
+
+===============
+VIEWS
+===============
+
+- Virtual Table
+- Types - Simple and Complex
+
+SIMPLE                                                          COMPLEX
+---------------------------------------------------------------------------
+OUT OF Single Table                                         More than one table
+Permits DML                                                 Not always
+
+
+- No DMLs on Views
+    - Group BY
+    - GROUP functions
+    - Union operator
+    - DISTINCT 
+
+================================================================
+
+Programming
+================================================================
+
+- Procedures
+- Functions
+- Triggers
+
+*NOTE: 
+    - DO NOT USE '\' - It is a escape character*
+    - DO NOT USE DDL & DCL shouldn't be used
+
+- BEGIN-----END
+
+- PROCEDURE
+    - SPECIFIC ACTION(SELECT, INSERT, UPDATE, DELETE...)
+    - Modular Programming
+    - Pre Compiled
+    - IN, OUT, INOUT
+
+- Rules for Variables
+    - Should be declared after the begin statement
+    - Each variable should be declared separately
+    - Do not use column names for variables
+    - Ex:   DECLARE v1 int;
+
+- 3 attributes
+    - Sequence => Order in which code should be flow => CASE
+    - Selection => Choice making process => *IF ELSEIF ELSE*
+    - Iteration => WHILE, SIMPLE, REPEAT
+
+
+- IF
+    IF <cond> THEN 
+        <statement>;
+    END IF;
+
+- IF ELSE
+    IF <cond> THEN
+        STATEMENT;
+    ELSE
+        statement;
+    END IF;
+
+- ELSEIF
+    IF <cond> THEN
+        statement;
+    ELSEIF <cond> THEN
+        statement;
+    ELSE
+        statement;
+    END IF;
+
+
+
+- WHILE:
+    - Does the activity as long as condition is true
+    - Syntax:
+        DELIMITER $$
+        CREATE PROCEDURE sp_name()
+        BEGIN
+            DECLARE
+            WHILE <condition> DO
+                statements;
+            END WHILE;
+        END $$
+
+
+- --command to see routines in a database
+```sql
+        SELECT SPECIFIC_name, ROUTINE_type
+        FROM INFORMATION_SCHEMA.routines
+        WHERE routine_schema='hr';
+```
+
