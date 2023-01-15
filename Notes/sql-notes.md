@@ -463,3 +463,43 @@ Programming
         WHERE routine_schema='hr';
 ```
 
+- FUNCTION:
+    - Procedure [may or may not return a value], [Does not contain return statement], [cant be used directly with SQL statements]
+    - function [Must return a single value], [return statement is must], [cant be used with SQL statements directly]
+    - Syntax:
+    ```sql
+        CREATE FUNCTION <functionname> () 
+        RETURNS DATATYPE 
+        DETERMINISTIC
+        BEGIN
+            DECLARE
+            ..
+            ..
+            RETURN
+        END
+    ```
+
+
+- TRIGGER
+    - Whenever event occurs triggers fires
+    - INSERT, UPDATE, DELETE
+    - TIMINGS - BEFORE, AFTER
+    - ROW LEVEL - NEW, OLD
+
+                *NEW*                 *OLD*
+    INSERT      yes                   no
+    UPDATE      yes                   yes
+    DELETE      no                    yes
+
+```sql
+    CREATE TRIGGER <name>
+    BEFORE/AFTER <event>
+    ON <tablename>
+    FOR EACH ROW
+    BEGIN
+        STATEMENTs
+    END
+```
+
+
+

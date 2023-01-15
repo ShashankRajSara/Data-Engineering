@@ -139,3 +139,176 @@ DELIMITER ;
 SET @pn='Shashank';
 CALL pro_hr7_inout(@pn);
 SELECT @pn;
+
+
+--FUNCTIONs
+
+--create function to pass employeeId as parameter, should return bonus
+--SH_CLERK 1.5*salary, SA_REP 1.75*salary, MK_MAN 2.0*salary, others salary
+DELIMITER $$
+CREATE FUNCTION fun_hr1(p1 INT)
+RETURNS NUMERIC(11,2)
+DETERMINISTIC
+BEGIN
+    DECLARE v1 NUMERIC(11,2);
+    DECLARE v2 NUMERIC(11,2);
+    DECLARE v3 VARCHAR(20);
+    SELECT job_id,salary INTO v3, v1 FROM employees WHERE employee_id=p1;
+    IF v3='SH_CLERK' THEN
+        SET v2=1.5*v1;
+    ELSEIF v3='SA_REP' THEN
+        SET v2=1.75*v1;
+    ELSEIF v3='MK_MAN' THEN
+        SET v2=2.0*v1;
+    ELSE
+        SET v2=v1;
+    END IF;
+    RETURN v2;
+END $$
+
+DELIMITER ;
+
+SELECT job_id,salary, fun_hr1(employee_id) FROM employees;
+
+
+--return employee, who worked on leap year
+CREATE FUNCTION fun_hr3(p1 INT)
+RETURNS VARCHAR(20)
+DETERMINISTIC
+BEGIN
+    DECLARE v1 INT;
+    DECLARE vleap VARCHAR(20);
+    SELECT DATE_FORMAT(CONCAT(YEAR(hire_date),'-12-31'),'%j') INTO v1 
+    FROM employees WHERE employee_id=p1;
+    IF v1=366 THEN
+        SET vleap='Leap Year';
+    ELSE
+        SET vleap='Not Leap Year';
+    END IF;
+    RETURN vleap;
+END $$
+
+
+SELECT hire_date,fun_hr3(employee_id) from employees;
+
+
+--Employee Joining Bonus
+-- On or before 15 of a Month will be paid joining bonus on the last friday after 1 year
+
+-- 2022-01-15 => 2023-01-26 LAST FRIDAY
+
+-- 2022-01-18 => 2023-02-26 LAST Friday
+
+
+
+
+--TRIGGERS
+
+--create a trigger to insert into retired table
+--whenever delete happens on the employee table
+CREATE TABLE retired( name varchar(30));
+
+DELIMITER $$
+CREATE TRIGGER trig_hr_del
+BEFORE DELETE ON employees
+FOR EACH ROW
+BEGIN
+    INSERT INTO retired values(old.first_name);
+END $$
+
+DELIMITER ;
+DELETE FROM employees WHERE employee_id=107;
+
+SELECT * from retired;
+
+
+----------------------------------------------------------------
+
+CREATE TABLE data_table (slno INT PRIMARY KEY, date1 date );
+
+DELIMITER $$
+CREATE TRIGGER trig_hr_checkdate
+BEFORE INSERT ON data_table
+FOR EACH ROW
+BEGIN
+    IF new.date1>CURDATE() THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='**date1< CURDATE()**';
+    END IF;
+END $$
+
+DELIMITER ;
+
+INSERT INTO data_table VALUES (1,'2023-01-31');
+
+SELECT * FROM data_table;
+
+-- create a trigger to restrict the decrease in the salary
+
+DELIMITER $$
+CREATE TRIGGER trig_hr_decsal
+BEFORE UPDATE ON employees
+FOR EACH ROW
+BEGIN
+    IF new.salary<old.salary THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='**Salary is less**';
+    END IF;
+END $$
+
+DELIMITER ;
+
+SELECT salary FROM employees WHERE employee_id = 101;
+
+UPDATE employees SET salary=15000 WHERE employee_id = 101;
+
+------------------------------------------------
+
+CREATE TABLE account(accno INTEGER PRIMARY KEY, name VARCHAR(25),balance NUMERIC(11,2));
+
+CREATE TABLE trans (accno INTEGER, wd numeric(11,2), dep numeric(11,2),
+    FOREIGN KEY(accno) REFERENCES account(accno));
+
+--create  a TRIGGER to update balance in account table
+--whenever wd(withdrawl), dep(deposit) happens on trans TABLE
+
+DELIMITER $$
+CREATE TRIGGER trig_hr_trans
+AFTER INSERT ON trans
+FOR EACH ROW
+BEGIN
+    IF new.dep IS NOT NULL THEN
+        UPDATE `account` SET balance = balance+new.dep WHERE accno = new.accno;
+    ELSE 
+        UPDATE `account` SET balance = balance-new.wd WHERE accno = new.accno;
+    END IF;
+END $$
+
+DELIMITER ;
+
+INSERT INTO `trans` VALUES (101,NULL,10000);
+
+SELECT * FROM `account`;
+
+
+
+--D
+USE `library`;
+DROP procedure IF EXISTS `return_book`;
+
+DELIMITER $$
+USE `library`$$
+CREATE PROCEDURE `return_book` (IN book_id INT,IN copy_id INT)
+BEGIN
+	
+	DECLARE bid INT;
+	SELECT bookid INTO bid FROM bres WHERE bookid=book_id;
+    UPDATE bloan SET ACT_DATE = curdate() WHERE bookid=book_id AND c_id=copy_id;
+	IF book_id=bid  THEN
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='**It is Reserved**';
+	else
+		UPDATE bcopy SET status='available' WHERE bookid=book_id AND c_id=copy_id;	
+        
+	END IF;
+END$$
+
+DELIMITER ;
+
