@@ -138,3 +138,18 @@ AS
     SELECT @v1+1 FROM cte_3 WHERE DAY(cte_3.DATE)<=31)
 SELECT * FROM cte_3;
 
+
+--employee cte
+WITH dc AS 
+(SELECT deptno, COUNT(*) cnt 
+FROM emp GROUP BY deptno)
+SELECT e.ename 'emp', e.deptno 'edep', m.ename 'manager', m.deptno 'mdep',
+dc1.cnt 'empcount', dc2.cnt 'managercount'
+FROM emp e JOIN emp m
+ON e.mgr=m.empno
+JOIN dc dc1 ON e.deptno=dc1.deptno
+JOIN dc dc2 ON m.deptno=dc2.deptno;
+
+
+SHOW variables like 'datadir';
+

@@ -529,5 +529,34 @@ WINDOW FUNCTIONS
 CTE - Common Table Expressions
 ================================================================
 
+```sql
+WITH dc AS 
+(SELECT deptno, COUNT(*) cnt 
+FROM emp GROUP BY deptno)
+SELECT e.ename 'emp', e.deptno 'edep', m.ename 'manager', m.deptno 'mdep',
+dc1.cnt 'empcount', dc2.cnt 'managercount'
+FROM emp e JOIN emp m
+ON e.mgr=m.empno
+JOIN dc dc1 ON e.deptno=dc1.deptno
+JOIN dc dc2 ON m.deptno=dc2.deptno;
 
-- 
+```
+
+==================  
+Architecture
+====================
+- information_schema.files
+
+- DATA Directory => SHOW variables like 'datadir';
+- Base Directory => SHOW variables like 'basedir';
+
+
+- rows inside datapages
+- datapages inside extends
+- extends inside datafiles
+- datafiles inside tablespaces
+
+- Other Table types
+    - Partitioned tables
+        - List Partitioning
+    - Temporary tables
