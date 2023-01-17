@@ -502,4 +502,32 @@ Programming
 ```
 
 
+==============================================
+WINDOW FUNCTIONS
+============================================
 
+- OVER() => ORDER BY, Partition,
+- Ranking Functions => Row_number(), rank(), dense_rank()
+
+- NOTE: 
+        - RANK() - When there is a tie, It leaves a Gap
+        - DENSE_RANK() - No Gaps, when there is a tie
+
+- *Comparing functions* - to compare value of the current row wrt to previous/next row
+    - LAG - access data from previous row
+    - LEAD - return data from next row
+    - first_value - return
+    - last_value 
+        - RANGE- *Between unbounded preceding and unbounded following*
+        - ROWS - *between unbounded preceding and current row*, *between current row and unbounded following*
+    - nth_value - return
+
+- Ntile - Divides the rows into partitions
+
+
+================================================================
+CTE - Common Table Expressions
+================================================================
+
+
+- 
