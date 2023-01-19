@@ -17,7 +17,7 @@ CREATE TABLE `users` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, 
   `username` varchar(25) NOT NULL UNIQUE,
   `password` varchar(25) NOT NULL,
-  `prefix` enum('Mr.','Mrs.','Ms.', 'Mx.') DEFAULT NULL,
+  `prefix` enum('Mr.','Mrs.','Ms.', 'Mx.') xzDEFAULT NULL,
   `name` varchar(25) DEFAULT NULL, 
   `email` varchar(50) DEFAULT NULL, 
   `mobile` varchar(10) DEFAULT NULL, 

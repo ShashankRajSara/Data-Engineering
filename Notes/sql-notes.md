@@ -583,3 +583,21 @@ Architecture
 - CURSOR
     - To handle result row by row
     - Declare, Open, Fetch, Close
+
+- SELECT type
+    - Simple
+    - Primary
+    - UNION
+    - Subquery
+
+- TYPE
+    - NULL
+    - ref => Non Unique
+    - const Primary KEY/UNIQUE
+    - INDEX_MERGE => Where clause columns having individual indexes
+    - ALL
+    - RANGE 
+
+- Optimizer Join
+    - Hash Join => No Indexes
+    - Nested loops => 
