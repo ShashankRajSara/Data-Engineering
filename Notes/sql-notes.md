@@ -559,4 +559,27 @@ Architecture
 - Other Table types
     - Partitioned tables
         - List Partitioning
+        - Range partitioning => Most of the companies use this type of partitioning
     - Temporary tables
+
+- SELECT
+    - Parsing
+    - Optimizing
+    - Executing
+    - Fetching
+
+- FORCING INDEX
+    - USE INDEX
+    - FORCE INDEX
+    - IGNORE INDEX
+
+- Invisible Indexes
+    - ALTER TABLE emp ALTER INDEX FK_deptno INVISIBLE;
+    - To temporarily make INDEX invisible
+
+- temporary table
+    - available until session
+
+- CURSOR
+    - To handle result row by row
+    - Declare, Open, Fetch, Close
