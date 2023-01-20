@@ -304,3 +304,54 @@ CREATE INDEX IX_regionIDC ON reg1 (regionid);
 
 ALTER TABLE country1 ADD CONSTRAINT FOREIGN KEY (region_id) REFERENCES reg1(region_id);
 
+--composite partition
+
+CREATE TABLE compo_range_hash (empno INT,ename VARCHAR(20), sal INT, Job VARCHAR(20))
+PARTITION BY RANGE(sal)
+SUBPARTITION BY HASH(empno)
+SUBPARTITIONS 2
+(
+    PARTITION P_1K VALUES LESS THAN (1000),
+    PARTITION P_2K VALUES LESS THAN (2000),
+    PARTITION P_3K VALUES LESS THAN (3000),
+    PARTITION P_4K VALUES LESS THAN (4000),
+    PARTITION P_MAX VALUES LESS THAN MAXVALUE
+);
+
+INSERT INTO compo_range_hash SELECT empno,ename,sal,job FROM check_extent;
+
+--partitions
+SELECT partition_name, table_rows,SUBPARTITION_name FROM information_schema.`PARTITIONS`
+WHERE `TABLE_NAME`='compo_range_hash';
+
+
+--partitions VALUES
+
+SELECT * FROM compo_range_hash PARTITION(P_1K);
+SELECT * FROM compo_range_hash PARTITION(P_1Ksp0);
+
+
+--subquery
+SELECT * FROM emp WHERE sal IN (SELECT MIN(sal) FROM emp);
+EXPLAIN SELECT * FROM emp WHERE sal IN (SELECT MIN(sal) FROM emp);
+EXPLAIN FORMAT=TREE SELECT * FROM emp WHERE sal IN (SELECT MIN(sal) FROM emp);
+
+SHOW INDEXES FROM emp;
+
+--correlated subquery
+
+EXPLAIN FORMAT=TREE SELECT ename,sal,deptno FROM emp e WHERE sal > (SELECT avg(sal) FROM emp WHERE deptno=e.deptno);
+
+
+--inlined subquery
+SELECT e.ename,e.sal,e.deptno,m.avsal FROM emp e
+JOIN (SELECT deptno,avg(sal) avsal FROM emp GROUP BY deptno) m ON e.deptno=m.deptno
+AND e.sal>m.avsal;
+
+
+--departements where no employees working
+EXPLAIN FORMAT=TREE SELECT d.deptno,d.dname FROM dept d
+WHERE NOT EXISTS (SELECT 1 FROM emp e WHERE d.deptno=d.deptno) ORDER BY d.deptno;
+
+EXPLAIN FORMAT=TREE SELECT dname,deptno FROM dept WHERE deptno NOT IN (SELECT deptno FROM emp);
+

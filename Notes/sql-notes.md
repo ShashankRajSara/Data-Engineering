@@ -601,3 +601,14 @@ Architecture
 - Optimizer Join
     - Hash Join => No Indexes
     - Nested loops => 
+
+- Composite Partition
+    - Main Partition should be List/Range
+    - Subpartition HASH
+        - AND Operator
+
+- INDEXES
+    - UNIQUE
+    - NON Unique
+    - Functional Index
+    - Hash Index
