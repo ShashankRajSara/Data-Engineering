@@ -355,3 +355,34 @@ WHERE NOT EXISTS (SELECT 1 FROM emp e WHERE d.deptno=d.deptno) ORDER BY d.deptno
 
 EXPLAIN FORMAT=TREE SELECT dname,deptno FROM dept WHERE deptno NOT IN (SELECT deptno FROM emp);
 
+<<<<<<< Updated upstream
+=======
+
+
+--practice
+
+EXPLAIN FORMAT=TREE SELECT ename, CASE 
+            WHEN sal>3000 THEN 'Good Salary'
+            WHEN sal=3000 THEN 'Average Salary'
+            ELSE 'Poor Salary'
+            END
+            FROM emp;
+
+
+
+EXPLAIN FORMAT=TREE SELECT ename, CASE 
+            WHEN sal>3000 THEN 'Good Salary'
+            WHEN sal=3000 THEN 'Average Salary'
+            ELSE 'Poor Salary'
+            END
+            FROM emp WHERE deptno=30;
+
+EXPLAIN FORMAT=TREE SELECT ename, IF(sal>3000,'Good Salary','Poor Salary') 
+FROM emp WHERE deptno=30;         
+
+
+--practice
+SELECT ename,sal,sal*1.5 FROM emp;
+EXPLAIN FORMAT=TREE SELECT ename,sal,sal*1.5 AS 'newsal' FROM emp
+WHERE sal*1.5>3000;
+>>>>>>> Stashed changes
