@@ -7,6 +7,7 @@
 
 - list => mutable data type, sequential collection of elements
 - array vs list => ANy data type
+- Keys of the dictionary are immutable
 
 - Reference 
 - changes depend on
@@ -18,7 +19,24 @@
     - Default argument
 
 
+- Lamda Function
+    - No name 
+    - Only one line statement
+    - Automatically returns the value
 
+
+- Map
+    - Iterate over the element
+    - apply functionality
+    - return output
+    - Element wise functionality
+
+
+- File HANDLING
+    - OPEN, READ, WRITE, CLOSE
+    - Open('filename',access mode)
+    - file I/O file IO handling
+    - to Save => close the file
 
 
 - Question
@@ -32,3 +50,10 @@
     - Find out the use case of the zip and enumerate function in python
     - Convert any number to octal and hexa decimal number
     - Solve the String Question
+
+    - Why objects are stored in heap? Why not stack?
+    - first class functions vs High order functions
+    - use casees of x, a, w (what they do with files)
+
+    - write programs to read csv, JSON and flat files
+    - Use cases of readline and readlines()
