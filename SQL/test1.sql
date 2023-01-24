@@ -1,4 +1,4 @@
--- Active: 1671688949427@@127.0.0.1@3308@hr
+-- Active: 1671688949427@@127.0.0.1@3308@airlinetest
 
 CREATE TABLE IF NOT EXISTS `person` (
     slno INT,
@@ -6,6 +6,9 @@ CREATE TABLE IF NOT EXISTS `person` (
     place VARCHAR(50),
     dob date
 );
+
+SELECT GROUP_CONCAT(countryId) FROM countries;
+
 
 
 INSERT INTO `person` VALUES(1002,'HITESH','DELHI','2000-05-01'), (1001,'RITESH','MUMBAI','1998-07-12'),(1005,'BALAN','KOCHI','1999-11-05');
