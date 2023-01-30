@@ -38,6 +38,18 @@
     - file I/O file IO handling
     - to Save => close the file
 
+- Access Modifiers
+    - Public
+    - Private
+    - Protected
+    - default (Package Protected)
+
+- *Name Manling* => Changing the name of __variable to other name 
+    - Ex: __salary to _Trainer__salary
+
+- Abstract Class - Child class should implement the methods which are in parent class
+
+
 
 - Question
     - Call by Value and call by reference
@@ -45,6 +57,7 @@
     - procedural programming
     - *itertator vs iterable*
     - Namespaces in python
+    - namespaces vs identifiers
     - list vs tuple
     - Variable stored in Heap or Stack
     - Find out the use case of the zip and enumerate function in python
@@ -57,3 +70,7 @@
 
     - write programs to read csv, JSON and flat files
     - Use cases of readline and readlines()
+    - .py vs .pyc 
+    - UTF vs ASCII
+    - firstclass vs highorder functions
+    - __name__ == '__main__'

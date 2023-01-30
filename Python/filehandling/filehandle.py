@@ -1,11 +1,9 @@
 fileobj = open('futurense.txt', 'r')
 
-
 # r, w, r+, w+, rb, rb+, wb, wb+, a, ab, ab+
 
 # a+ => append & read
 
- 
 #read
 
 data=fileobj.read()
@@ -35,5 +33,12 @@ fileobj.tell()
 
 #new way of file reading
 with open('futurense.txt', 'r+') as fileobj:
-    data=fileobj.read()
+    data=fileobj.readlines()
 print(data)
+
+#Binary
+with open('filehandling/futurense.txt','w+') as obj:
+    data = int(input("Enter a Number: "))
+    print(data)
+    obj.write(bin(data))
+    # print(obj.read())
