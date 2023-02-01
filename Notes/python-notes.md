@@ -74,3 +74,5 @@
     - UTF vs ASCII
     - firstclass vs highorder functions
     - __name__ == '__main__'
+    - Difference between Windows and Analytics functions
+    - Constructor Chaining
