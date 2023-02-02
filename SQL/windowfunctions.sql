@@ -153,3 +153,12 @@ JOIN dc dc2 ON m.deptno=dc2.deptno;
 
 SHOW variables like 'datadir';
 
+SELECT * FROM emp;
+SELECT  RANK(job) OVER (PARTITION BY `JOB`) FROM emp;
+
+SELECT ename,sal,ROW_NUMBER() OVER(ORDER BY sal DESC) 'rrank',
+RANK() OVER(ORDER BY sal DESC) 'rank',
+DENSE_RANK() OVER(ORDER BY sal DESC) drank
+FROM emp
+WHERE rrank =3;
+

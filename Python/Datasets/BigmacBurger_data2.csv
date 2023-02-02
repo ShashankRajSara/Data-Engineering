@@ -1,0 +1,654 @@
+Date,Country,Price in US Dollars
+Jan-16,Argentina,2.39
+Jan-16,Australia,3.74
+Jan-16,Brazil,3.35
+Jan-16,Britain,4.22
+Jan-16,Canada,4.14
+Jan-16,Chile,2.94
+Jan-16,China,2.68
+Jan-16,Colombia,2.43
+Jan-16,Costa Rica,4.02
+Jan-16,Czech Republic,2.98
+Jan-16,Denmark,4.32
+Jan-16,Egypt,2.16
+Jan-16,Euro area,4
+Jan-16,Hong Kong,2.48
+Jan-16,Hungary,3.08
+Jan-16,India,1.9
+Jan-16,Indonesia,2.19
+Jan-16,Israel,4.29
+Jan-16,Japan,3.12
+Jan-16,Malaysia,1.82
+Jan-16,Mexico,2.81
+Jan-16,New Zealand,3.91
+Jan-16,Norway,5.21
+Jan-16,Pakistan,2.86
+Jan-16,Peru,2.93
+Jan-16,Philippines,2.79
+Jan-16,Poland,2.37
+Jan-16,Russia,1.53
+Jan-16,Saudi Arabia,3.2
+Jan-16,Singapore,3.27
+Jan-16,South Africa,1.77
+Jan-16,South Korea,3.59
+Jan-16,Sri Lanka,2.43
+Jan-16,Sweden,5.23
+Jan-16,Switzerland,6.44
+Jan-16,Taiwan,2.08
+Jan-16,Thailand,3.09
+Jan-16,Turkey,3.41
+Jan-16,UAE,3.54
+Jan-16,Ukraine,1.54
+Jan-16,United States,4.93
+Jan-16,Uruguay,3.74
+Jan-16,Venezuela,0.66
+Jan-16,Vietnam,2.67
+Jan-16,Austria,3.76
+Jan-16,Belgium,4.25
+Jan-16,Estonia,3.23
+Jan-16,Finland,4.41
+Jan-16,France,4.41
+Jan-16,Germany,3.86
+Jan-16,Greece,3.6
+Jan-16,Ireland,4.25
+Jan-16,Italy,4.3
+Jan-16,Netherlands,3.71
+Jan-16,Portugal,3.23
+Jan-16,Spain,3.76
+Jul-15,Argentina,3.07
+Jul-15,Australia,3.92
+Jul-15,Brazil,4.28
+Jul-15,Britain,4.51
+Jul-15,Canada,4.54
+Jul-15,Chile,3.27
+Jul-15,China,2.74
+Jul-15,Colombia,2.92
+Jul-15,Costa Rica,4.03
+Jul-15,Czech Republic,2.83
+Jul-15,Denmark,5.08
+Jul-15,Egypt,2.16
+Jul-15,Euro area,4.05
+Jul-15,Hong Kong,2.48
+Jul-15,Hungary,3.18
+Jul-15,India,1.83
+Jul-15,Indonesia,2.29
+Jul-15,Israel,4.63
+Jul-15,Japan,2.99
+Jul-15,Malaysia,2.01
+Jul-15,Mexico,3.11
+Jul-15,New Zealand,3.91
+Jul-15,Norway,5.65
+Jul-15,Pakistan,3.44
+Jul-15,Peru,3.14
+Jul-15,Philippines,3.61
+Jul-15,Poland,2.54
+Jul-15,Russia,1.88
+Jul-15,Saudi Arabia,3.2
+Jul-15,Singapore,3.44
+Jul-15,South Africa,2.09
+Jul-15,South Korea,3.76
+Jul-15,Sri Lanka,2.61
+Jul-15,Sweden,5.13
+Jul-15,Switzerland,6.82
+Jul-15,Taiwan,2.55
+Jul-15,Thailand,3.17
+Jul-15,Turkey,3.87
+Jul-15,UAE,3.54
+Jul-15,Ukraine,1.55
+Jul-15,United States,4.79
+Jul-15,Uruguay,4.13
+Jul-15,Venezuela,0.67
+Jul-15,Vietnam,2.75
+Jul-15,Austria,3.71
+Jul-15,Belgium,4.05
+Jul-15,Estonia,3.23
+Jul-15,Finland,4.49
+Jul-15,France,4.49
+Jul-15,Germany,3.93
+Jul-15,Greece,3.34
+Jul-15,Ireland,4.05
+Jul-15,Italy,4.38
+Jul-15,Netherlands,3.78
+Jul-15,Portugal,3.29
+Jul-15,Spain,4
+Jan-15,Argentina,3.25
+Jan-15,Australia,4.32
+Jan-15,Brazil,5.21
+Jan-15,Britain,4.37
+Jan-15,Canada,4.64
+Jan-15,Chile,3.35
+Jan-15,China,2.77
+Jan-15,Colombia,3.34
+Jan-15,Costa Rica,4.01
+Jan-15,Czech Republic,2.92
+Jan-15,Denmark,5.38
+Jan-15,Egypt,2.3
+Jan-15,Euro area,4.26
+Jan-15,Hong Kong,2.43
+Jan-15,Hungary,3.17
+Jan-15,India,1.89
+Jan-15,Indonesia,2.24
+Jan-15,Israel,4.45
+Jan-15,Japan,3.14
+Jan-15,Malaysia,2.11
+Jan-15,Mexico,3.35
+Jan-15,New Zealand,4.49
+Jan-15,Norway,6.3
+Jan-15,Pakistan,2.98
+Jan-15,Peru,3.32
+Jan-15,Philippines,3.67
+Jan-15,Poland,2.48
+Jan-15,Russia,1.36
+Jan-15,Saudi Arabia,2.93
+Jan-15,Singapore,3.53
+Jan-15,South Africa,2.22
+Jan-15,South Korea,3.78
+Jan-15,Sri Lanka,2.65
+Jan-15,Sweden,4.97
+Jan-15,Switzerland,7.54
+Jan-15,Taiwan,2.51
+Jan-15,Thailand,3.04
+Jan-15,Turkey,3.96
+Jan-15,UAE,3.54
+Jan-15,Ukraine,1.2
+Jan-15,United States,4.79
+Jan-15,Uruguay,4.63
+Jan-15,Venezuela,2.53
+Jan-15,Vietnam,2.81
+Jan-15,Austria,3.93
+Jan-15,Belgium,4.29
+Jan-15,Estonia,3.36
+Jan-15,Finland,4.75
+Jan-15,France,4.52
+Jan-15,Germany,4.25
+Jan-15,Greece,3.53
+Jan-15,Ireland,4.04
+Jan-15,Italy,4.46
+Jan-15,Netherlands,4
+Jan-15,Portugal,3.48
+Jan-15,Spain,4.23
+Jul-14,Argentina,2.57
+Jul-14,Australia,4.81
+Jul-14,Brazil,5.86
+Jul-14,Britain,4.93
+Jul-14,Canada,5.25
+Jul-14,Chile,3.72
+Jul-14,China,2.73
+Jul-14,Colombia,4.65
+Jul-14,Costa Rica,4
+Jul-14,Czech Republic,3.46
+Jul-14,Denmark,5.15
+Jul-14,Egypt,2.37
+Jul-14,Euro area,4.95
+Jul-14,Hong Kong,2.43
+Jul-14,Hungary,3.77
+Jul-14,India,1.75
+Jul-14,Indonesia,2.43
+Jul-14,Israel,5.13
+Jul-14,Japan,3.64
+Jul-14,Lithuania,3.49
+Jul-14,Malaysia,2.41
+Jul-14,Mexico,3.25
+Jul-14,New Zealand,4.94
+Jul-14,Norway,7.76
+Jul-14,Pakistan,3.04
+Jul-14,Peru,3.59
+Jul-14,Philippines,3.7
+Jul-14,Poland,3
+Jul-14,Russia,2.55
+Jul-14,Saudi Arabia,2.93
+Jul-14,Singapore,3.8
+Jul-14,South Africa,2.33
+Jul-14,South Korea,4
+Jul-14,Sri Lanka,2.69
+Jul-14,Sweden,5.95
+Jul-14,Switzerland,6.83
+Jul-14,Taiwan,2.63
+Jul-14,Thailand,3.12
+Jul-14,Turkey,4.42
+Jul-14,UAE,3.54
+Jul-14,Ukraine,1.63
+Jul-14,United States,4.8
+Jul-14,Uruguay,4.92
+Jul-14,Venezuela,6.82
+Jul-14,Vietnam,2.83
+Jul-14,Austria,4.56
+Jul-14,Belgium,4.98
+Jul-14,Estonia,3.9
+Jul-14,Finland,5.52
+Jul-14,France,5.25
+Jul-14,Germany,4.94
+Jul-14,Greece,4.11
+Jul-14,Ireland,4.7
+Jul-14,Italy,5.18
+Jul-14,Netherlands,4.64
+Jul-14,Portugal,4.04
+Jul-14,Spain,4.91
+Jan-14,Argentina,3.03
+Jan-14,Australia,4.47
+Jan-14,Brazil,5.25
+Jan-14,Britain,4.63
+Jan-14,Canada,5.01
+Jan-14,Chile,3.69
+Jan-14,China,2.74
+Jan-14,Colombia,4.34
+Jan-14,Costa Rica,4.28
+Jan-14,Czech Republic,3.47
+Jan-14,Denmark,5.18
+Jan-14,Egypt,2.43
+Jan-14,Euro area,4.96
+Jan-14,Hong Kong,2.32
+Jan-14,Hungary,3.85
+Jan-14,India,1.54
+Jan-14,Indonesia,2.3
+Jan-14,Israel,5.02
+Jan-14,Japan,2.97
+Jan-14,Lithuania,3.46
+Jan-14,Malaysia,2.23
+Jan-14,Mexico,2.78
+Jan-14,New Zealand,4.57
+Jan-14,Norway,7.8
+Jan-14,Pakistan,3.04
+Jan-14,Peru,3.56
+Jan-14,Philippines,2.98
+Jan-14,Poland,3
+Jan-14,Russia,2.62
+Jan-14,Saudi Arabia,2.93
+Jan-14,Singapore,3.6
+Jan-14,South Africa,2.16
+Jan-14,South Korea,3.47
+Jan-14,Sri Lanka,2.68
+Jan-14,Sweden,6.29
+Jan-14,Switzerland,7.14
+Jan-14,Taiwan,2.62
+Jan-14,Thailand,2.92
+Jan-14,Turkey,3.76
+Jan-14,UAE,3.27
+Jan-14,Ukraine,2.27
+Jan-14,United States,4.62
+Jan-14,Uruguay,4.91
+Jan-14,Venezuela,7.15
+Jan-14,Vietnam,2.84
+Jan-14,Austria,4.6
+Jan-14,Belgium,5.36
+Jan-14,Estonia,3.8
+Jan-14,Finland,5.56
+Jan-14,France,5.15
+Jan-14,Germany,4.98
+Jan-14,Greece,4.14
+Jan-14,Ireland,4.69
+Jan-14,Italy,5.22
+Jan-14,Netherlands,4.68
+Jan-14,Portugal,4.07
+Jan-14,Spain,4.95
+Jul-13,Argentina,3.88
+Jul-13,Australia,4.62
+Jul-13,Brazil,5.28
+Jul-13,Britain,4.02
+Jul-13,Canada,5.26
+Jul-13,Chile,3.94
+Jul-13,China,2.61
+Jul-13,Colombia,4.48
+Jul-13,Costa Rica,4.31
+Jul-13,Czech Republic,3.49
+Jul-13,Denmark,4.91
+Jul-13,Egypt,2.39
+Jul-13,Euro area,4.66
+Jul-13,Hong Kong,2.19
+Jul-13,Hungary,3.76
+Jul-13,India,1.5
+Jul-13,Indonesia,2.8
+Jul-13,Israel,4.8
+Jul-13,Japan,3.2
+Jul-13,Latvia,3.09
+Jul-13,Lithuania,3.2
+Jul-13,Malaysia,2.3
+Jul-13,Mexico,2.86
+Jul-13,New Zealand,4.3
+Jul-13,Norway,7.51
+Jul-13,Pakistan,3
+Jul-13,Peru,3.59
+Jul-13,Philippines,2.65
+Jul-13,Poland,2.73
+Jul-13,Russia,2.64
+Jul-13,Saudi Arabia,2.67
+Jul-13,Singapore,3.69
+Jul-13,South Africa,2.24
+Jul-13,South Korea,3.43
+Jul-13,Sri Lanka,2.83
+Jul-13,Sweden,6.16
+Jul-13,Switzerland,6.72
+Jul-13,Taiwan,2.63
+Jul-13,Thailand,2.85
+Jul-13,Turkey,4.34
+Jul-13,UAE,3.27
+Jul-13,Ukraine,2.33
+Jul-13,United States,4.56
+Jul-13,Uruguay,4.98
+Jul-13,Venezuela,7.15
+Jul-13,Austria,4.36
+Jul-13,Belgium,4.76
+Jul-13,Estonia,3.54
+Jul-13,Finland,5.27
+Jul-13,France,5.01
+Jul-13,Germany,4.68
+Jul-13,Greece,3.34
+Jul-13,Ireland,4.45
+Jul-13,Italy,4.82
+Jul-13,Netherlands,4.44
+Jul-13,Portugal,3.79
+Jul-13,Spain,4.5
+Jan-13,Argentina,3.82
+Jan-13,Australia,4.9
+Jan-13,Brazil,5.64
+Jan-13,Britain,4.25
+Jan-13,Canada,5.39
+Jan-13,Chile,4.35
+Jan-13,China,2.57
+Jan-13,Colombia,4.85
+Jan-13,Costa Rica,4.39
+Jan-13,Czech Republic,3.72
+Jan-13,Denmark,5.18
+Jan-13,Egypt,2.39
+Jan-13,Euro area,4.88
+Jan-13,Hong Kong,2.19
+Jan-13,Hungary,3.82
+Jan-13,India,1.67
+Jan-13,Indonesia,2.86
+Jan-13,Israel,4
+Jan-13,Japan,3.51
+Jan-13,Latvia,3.28
+Jan-13,Lithuania,3.07
+Jan-13,Malaysia,2.58
+Jan-13,Mexico,2.9
+Jan-13,New Zealand,4.32
+Jan-13,Norway,7.84
+Jan-13,Pakistan,2.97
+Jan-13,Peru,3.91
+Jan-13,Philippines,2.91
+Jan-13,Poland,2.94
+Jan-13,Russia,2.43
+Jan-13,Saudi Arabia,2.93
+Jan-13,Singapore,3.64
+Jan-13,South Africa,2.31
+Jan-13,South Korea,3.41
+Jan-13,Sri Lanka,2.77
+Jan-13,Sweden,6.39
+Jan-13,Switzerland,7.12
+Jan-13,Taiwan,2.54
+Jan-13,Thailand,2.92
+Jan-13,Turkey,4.78
+Jan-13,UAE,3.27
+Jan-13,Ukraine,2.33
+Jan-13,United States,4.37
+Jan-13,Uruguay,5.45
+Jan-13,Venezuela,9.08
+Jan-13,Austria,4.6
+Jan-13,Belgium,5.16
+Jan-13,Estonia,3.66
+Jan-13,Finland,5.09
+Jan-13,France,4.89
+Jan-13,Germany,4.94
+Jan-13,Greece,4.48
+Jan-13,Ireland,4.74
+Jan-13,Italy,5.22
+Jan-13,Netherlands,4.68
+Jan-13,Portugal,4
+Jan-13,Spain,4.75
+Jul-12,Argentina,4.16
+Jul-12,Australia,4.68
+Jul-12,Brazil,4.94
+Jul-12,Britain,4.16
+Jul-12,Canada,5.02
+Jul-12,Chile,4.16
+Jul-12,China,2.45
+Jul-12,Colombia,4.77
+Jul-12,Costa Rica,2.4
+Jul-12,Czech Republic,3.34
+Jul-12,Denmark,4.65
+Jul-12,Egypt,2.64
+Jul-12,Euro area,4.34
+Jul-12,Hong Kong,2.13
+Jul-12,Hungary,3.48
+Jul-12,India,1.58
+Jul-12,Indonesia,2.55
+Jul-12,Israel,2.92
+Jul-12,Japan,4.09
+Jul-12,Latvia,2.94
+Jul-12,Lithuania,2.74
+Jul-12,Malaysia,2.33
+Jul-12,Mexico,2.7
+Jul-12,New Zealand,4
+Jul-12,Norway,7.06
+Jul-12,Pakistan,3.01
+Jul-12,Philippines,2.8
+Jul-12,Poland,2.63
+Jul-12,Russia,2.29
+Jul-12,Saudi Arabia,2.67
+Jul-12,Singapore,3.5
+Jul-12,South Africa,2.36
+Jul-12,South Korea,3.21
+Jul-12,Sri Lanka,2.21
+Jul-12,Sweden,5.73
+Jul-12,Switzerland,6.56
+Jul-12,Taiwan,2.48
+Jul-12,Thailand,2.59
+Jul-12,Turkey,4.52
+Jul-12,UAE,3.27
+Jul-12,Ukraine,1.86
+Jul-12,United States,4.33
+Jul-12,Uruguay,4.53
+Jul-12,Venezuela,7.92
+Jul-12,Austria,3.87
+Jul-12,Belgium,4.61
+Jul-12,Estonia,2.47
+Jul-12,Finland,4.55
+Jul-12,France,4.36
+Jul-12,Germany,4.41
+Jul-12,Greece,3.25
+Jul-12,Ireland,4.23
+Jul-12,Italy,4.36
+Jul-12,Netherlands,4.1
+Jul-12,Portugal,6
+Jul-12,Spain,4.24
+Jan-12,Argentina,4.64
+Jan-12,Australia,4.94
+Jan-12,Brazil,5.68
+Jan-12,Britain,3.82
+Jan-12,Canada,4.63
+Jan-12,Chile,4.05
+Jan-12,China,2.44
+Jan-12,Colombia,4.54
+Jan-12,Costa Rica,4.02
+Jan-12,Czech Republic,3.45
+Jan-12,Denmark,5.37
+Jan-12,Egypt,2.57
+Jan-12,Euro area,4.43
+Jan-12,Hong Kong,2.12
+Jan-12,Hungary,2.63
+Jan-12,India,1.62
+Jan-12,Indonesia,2.46
+Jan-12,Israel,4.13
+Jan-12,Japan,4.16
+Jan-12,Latvia,3
+Jan-12,Lithuania,2.87
+Jan-12,Malaysia,2.34
+Jan-12,Mexico,2.7
+Jan-12,New Zealand,4.05
+Jan-12,Norway,6.79
+Jan-12,Pakistan,2.89
+Jan-12,Peru,3.71
+Jan-12,Philippines,2.68
+Jan-12,Poland,2.58
+Jan-12,Russia,2.55
+Jan-12,Saudi Arabia,2.67
+Jan-12,Singapore,3.75
+Jan-12,South Africa,2.45
+Jan-12,South Korea,3.19
+Jan-12,Sri Lanka,2.55
+Jan-12,Sweden,5.91
+Jan-12,Switzerland,6.81
+Jan-12,Taiwan,2.5
+Jan-12,Thailand,2.46
+Jan-12,Turkey,3.54
+Jan-12,UAE,3.27
+Jan-12,Ukraine,2.11
+Jan-12,United States,4.2
+Jan-12,Uruguay,4.63
+Jan-12,Venezuela,6.99
+Jan-12,Austria,3.92
+Jan-12,Belgium,4.69
+Jan-12,Estonia,2.59
+Jan-12,Finland,4.76
+Jan-12,France,4.57
+Jan-12,Germany,4.48
+Jan-12,Greece,4.19
+Jan-12,Ireland,4.82
+Jan-12,Italy,4.44
+Jan-12,Netherlands,4.12
+Jan-12,Portugal,3.68
+Jan-12,Spain,4.44
+Jul-11,Argentina,4.84
+Jul-11,Australia,4.94
+Jul-11,Brazil,6.16
+Jul-11,Britain,3.89
+Jul-11,Canada,5
+Jul-11,Chile,4
+Jul-11,China,2.27
+Jul-11,Colombia,4.74
+Jul-11,Costa Rica,4.07
+Jul-11,Czech Republic,4.07
+Jul-11,Denmark,5.48
+Jul-11,Egypt,2.36
+Jul-11,Euro area,4.93
+Jul-11,Hong Kong,1.94
+Jul-11,Hungary,4.04
+Jul-11,India,1.89
+Jul-11,Indonesia,2.64
+Jul-11,Israel,4.67
+Jul-11,Japan,4.08
+Jul-11,Latvia,3.23
+Jul-11,Lithuania,3.03
+Jul-11,Malaysia,2.42
+Jul-11,Mexico,2.74
+Jul-11,New Zealand,4.41
+Jul-11,Norway,8.31
+Jul-11,Pakistan,2.38
+Jul-11,Peru,3.65
+Jul-11,Philippines,2.78
+Jul-11,Poland,3.09
+Jul-11,Russia,2.7
+Jul-11,Saudi Arabia,2.67
+Jul-11,Singapore,3.65
+Jul-11,South Africa,2.87
+Jul-11,South Korea,3.5
+Jul-11,Sri Lanka,2.56
+Jul-11,Sweden,7.64
+Jul-11,Switzerland,8.06
+Jul-11,Taiwan,2.6
+Jul-11,Thailand,2.35
+Jul-11,Turkey,3.77
+Jul-11,UAE,3.27
+Jul-11,Ukraine,2.06
+Jul-11,United States,4.07
+Jul-11,Uruguay,4.88
+Jul-11,Venezuela,6.52
+Jul-11,Austria,4.43
+Jul-11,Belgium,5.38
+Jul-11,Estonia,3.15
+Jul-11,Finland,5.38
+Jul-11,France,5.02
+Jul-11,Germany,4.87
+Jul-11,Greece,4.67
+Jul-11,Ireland,5.45
+Jul-11,Italy,5.02
+Jul-11,Netherlands,4.66
+Jul-11,Portugal,4.16
+Jul-11,Spain,5.02
+Jul-10,Argentina,3.56
+Jul-10,Australia,3.84
+Jul-10,Brazil,4.91
+Jul-10,Britain,3.48
+Jul-10,Canada,4
+Jul-10,Chile,3.34
+Jul-10,China,1.95
+Jul-10,Colombia,4.39
+Jul-10,Costa Rica,3.83
+Jul-10,Czech Republic,3.43
+Jul-10,Denmark,4.9
+Jul-10,Egypt,2.28
+Jul-10,Euro area,4.33
+Jul-10,Hong Kong,1.9
+Jul-10,Hungary,3.33
+Jul-10,Indonesia,2.51
+Jul-10,Israel,3.86
+Jul-10,Japan,3.67
+Jul-10,Latvia,2.8
+Jul-10,Lithuania,2.71
+Jul-10,Malaysia,2.19
+Jul-10,Mexico,2.5
+Jul-10,New Zealand,3.59
+Jul-10,Norway,7.2
+Jul-10,Pakistan,2.46
+Jul-10,Peru,3.54
+Jul-10,Philippines,2.19
+Jul-10,Poland,2.6
+Jul-10,Russia,2.33
+Jul-10,Saudi Arabia,2.67
+Jul-10,Singapore,3.08
+Jul-10,South Africa,2.45
+Jul-10,South Korea,2.82
+Jul-10,Sri Lanka,1.86
+Jul-10,Sweden,6.56
+Jul-10,Switzerland,6.19
+Jul-10,Taiwan,2.34
+Jul-10,Thailand,2.17
+Jul-10,Turkey,3.89
+Jul-10,UAE,2.99
+Jul-10,Ukraine,1.84
+Jul-10,United States,3.73
+Jul-10,Uruguay,3.74
+Jan-10,Argentina,1.84
+Jan-10,Australia,3.98
+Jan-10,Brazil,4.76
+Jan-10,Britain,3.67
+Jan-10,Canada,3.97
+Jan-10,Chile,3.18
+Jan-10,China,1.83
+Jan-10,Colombia,3.91
+Jan-10,Costa Rica,3.52
+Jan-10,Czech Republic,3.71
+Jan-10,Denmark,5.99
+Jan-10,Egypt,2.38
+Jan-10,Euro area,4.84
+Jan-10,Hong Kong,1.91
+Jan-10,Hungary,3.86
+Jan-10,Indonesia,2.24
+Jan-10,Israel,3.99
+Jan-10,Japan,3.5
+Jan-10,Latvia,3.09
+Jan-10,Lithuania,2.87
+Jan-10,Malaysia,2.08
+Jan-10,Mexico,2.5
+Jan-10,New Zealand,3.61
+Jan-10,Norway,7.02
+Jan-10,Pakistan,2.42
+Jan-10,Peru,2.81
+Jan-10,Philippines,2.21
+Jan-10,Poland,2.86
+Jan-10,Russia,2.34
+Jan-10,Saudi Arabia,2.67
+Jan-10,Singapore,3.19
+Jan-10,South Africa,2.46
+Jan-10,South Korea,2.98
+Jan-10,Sri Lanka,1.83
+Jan-10,Sweden,5.51
+Jan-10,Switzerland,6.3
+Jan-10,Taiwan,2.36
+Jan-10,Thailand,2.11
+Jan-10,Turkey,3.83
+Jan-10,UAE,2.99
+Jan-10,Ukraine,1.83
+Jan-10,United States,3.58
+Jan-10,Uruguay,3.32
+Jan-10,Urgu,3.32

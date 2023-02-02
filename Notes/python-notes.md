@@ -76,3 +76,9 @@
     - __name__ == '__main__'
     - Difference between Windows and Analytics functions
     - Constructor Chaining
+    - setAttribute/getAttribute
+    - Difference btw UNION and JOIN
+
+
+    - Melt
+    - Date format 
