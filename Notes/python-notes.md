@@ -82,3 +82,6 @@
 
     - Melt
     - Date format 
+    - Time Delta
+    - date_offset method
+    
