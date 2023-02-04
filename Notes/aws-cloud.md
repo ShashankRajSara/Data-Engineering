@@ -1,7 +1,6 @@
 
-==============================
-    *COMPUTE IN THE CLOUD*
-==============================
+1. *COMPUTE IN THE CLOUD*
+
 
 - **Amazon Elastic Compute Cloud (Amazon EC2)** offers the broadest and deepest compute platform, with over
     500 instances and choice of the latest processor, storage, networking, operating system, and purchase model
