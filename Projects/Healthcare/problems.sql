@@ -76,22 +76,83 @@ GROUP BY `pharmacyID`;
 -- Problem Statement 1: A company needs to set up 3 new pharmacies, they have come up with an idea that the pharmacy can be 
 -- set up in cities where the pharmacy-to-prescription ratio is the lowest and the number of prescriptions should exceed 100. 
 -- Assist the company to identify those cities where the pharmacy can be set up.
-SELECT city, COUNT(`pharmacy`.`pharmacyID`), COUNT(`prescriptionID`)
-FROM address
-NATURAL JOIN pharmacy
-LEFT JOIN prescription
-ON prescription.`prescriptionID`=`pharmacy`.`pharmacyID`
-GROUP BY city;
 
-SELECT * from 
+SELECT a.city, COUNT(DISTINCT p.`pharmacyID`)/COUNT(c.`prescriptionID`) ratio
+FROM address a
+    left JOIN pharmacy p on p.`addressID` = a.`addressID`
+    JOIN prescription c on c.`pharmacyID` = p.`pharmacyID`
+GROUP BY a.city--,p.`pharmacyID`
+HAVING COUNT(c.`prescriptionID`) > 100
+ORDER BY ratio
+LIMIT 3;
 
--- Problem Statement 2: The State of Alabama (AL) is trying to manage its healthcare resources more efficiently. For each city in their state, they need to identify the disease for which the maximum number of patients have gone for treatment. Assist the state for this purpose.
+
+-- Problem Statement 2: The State of Alabama (AL) is trying to manage its healthcare resources more efficiently. 
+-- For each city in their state, they need to identify the disease for which the maximum number of patients have gone
+--  for treatment. Assist the state for this purpose.
 -- Note: The state of Alabama is represented as AL in Address Table.
 
--- Problem Statement 3: The healthcare department needs a report about insurance plans. The report is required to include the insurance plan, which was claimed the most and least for each disease.  Assist to create such a report.
+with cte AS (
+	SELECT city, `diseaseID`,COUNT(`patientID`) countP, DENSE_RANK() OVER(PARTITION BY city ORDER BY COUNT(`patientID`) DESC) AS 'dRank'
+	FROM address
+	NATURAL JOIN person
+	INNER JOIN patient ON person.`personID`=patient.`patientID`
+	NATURAL JOIN treatment
+	WHERE state = 'AL'
+	GROUP BY city, `diseaseID`
+	ORDER BY countP DESC
+)
+SELECT city,`diseaseID`, countP
+FROM cte
+WHERE dRank =1
+GROUP BY city, `diseaseID`;
 
--- Problem Statement 4: The Healthcare department wants to know which disease is most likely to infect multiple people in the same household. For each disease find the number of households that has more than one patient with the same disease. 
+
+-- Problem Statement 3: The healthcare department needs a report about insurance plans. 
+-- The report is required to include the insurance plan, which was claimed the most and least for each disease.  
+-- Assist to create such a report.
+
+WITH cte AS
+(
+    SELECT d.diseaseName dname,i.`planName` plan, COUNT(c.`claimID`) cnt
+    FROM disease d
+        JOIN treatment t on t.`diseaseID` = d.`diseaseID`
+        JOIN claim c on c.`claimID` = t.`claimID`
+        JOIN insuranceplan i on i.uin = c.uin
+    GROUP BY d.`diseaseName`,i.`planName`
+    ORDER BY d.`diseaseName`, COUNT(c.`claimID`)
+)
+SELECT dname, plan, cnt
+FROM cte ct
+WHERE cnt in (SELECT min(cnt) from cte WHERE dname=ct.dname) OR
+ cnt in (SELECT max(cnt) from cte WHERE dname=ct.dname);
+
+-- Problem Statement 4: The Healthcare department wants to know which disease is most likely to infect multiple people 
+-- in the same household. For each disease find the number of households that has more than one patient with the same disease. 
 -- Note: 2 people are considered to be in the same household if they have the same address. 
+SELECT * -- diseaseId,`diseaseName`,COUNT(DISTINCT addressId), COUNT( `patientID`) 'noOfPatients'
+FROM person
+INNER JOIN address USING (`addressID`)
+INNER JOIN patient USING (`patientID`)
+INNER JOIN treatment USING (`treatmentID`)
+INNER JOIN disease USING (`diseaseID`)
+GROUP BY diseaseId
+HAVING noOfPatients>1;
 
--- Problem Statement 5:  An Insurance company wants a state wise report of the treatments to claim ratio between 1st April 2021 and 31st March 2022 (days both included). Assist them to create such a report.
+
+-- Problem Statement 5:  An Insurance company wants a state wise report of the treatments to claim ratio between 
+-- 1st April 2021 and 31st March 2022 (days both included). Assist them to create such a report.
+SELECT state, COUNT(`treatmentID`), COUNT(`claimID`)
+FROM address
+NATURAL JOIN person
+NATURAL JOIN patient
+NATURAL JOIN treatment
+NATURAL JOIN claim
+GROUP BY state
+LIMIT 50;
+
+SELECT *
+FROM address
+NATURAL JOIN person;
+
 
