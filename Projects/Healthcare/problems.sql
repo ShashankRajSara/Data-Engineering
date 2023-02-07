@@ -83,8 +83,8 @@ FROM address a
     JOIN prescription c on c.`pharmacyID` = p.`pharmacyID`
 GROUP BY a.city--,p.`pharmacyID`
 HAVING COUNT(c.`prescriptionID`) > 100
-ORDER BY ratio
-LIMIT 3;
+ORDER BY ratio 
+limit 3;
 
 
 -- Problem Statement 2: The State of Alabama (AL) is trying to manage its healthcare resources more efficiently. 
@@ -142,14 +142,15 @@ HAVING noOfPatients>1;
 
 -- Problem Statement 5:  An Insurance company wants a state wise report of the treatments to claim ratio between 
 -- 1st April 2021 and 31st March 2022 (days both included). Assist them to create such a report.
-SELECT state, COUNT(`treatmentID`), COUNT(`claimID`)
+SELECT state, COUNT(`treatmentID`)/COUNT(`claimID`) AS `treat-claim-ratio`
 FROM address
-NATURAL JOIN person
-NATURAL JOIN patient
-NATURAL JOIN treatment
-NATURAL JOIN claim
+LEFT JOIN person USING (`addressID`)
+INNER JOIN treatment ON person.`personID`=treatment.`patientID`
+LEFT JOIN claim USING (`claimID`)
+WHERE date BETWEEN '2021-04-01' AND '2022-03-31'
 GROUP BY state
-LIMIT 50;
+ORDER BY `treat-claim-ratio`;
+
 
 SELECT *
 FROM address
