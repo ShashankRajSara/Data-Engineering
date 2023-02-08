@@ -251,3 +251,120 @@ GROUP BY `pharmacyName`
 ORDER BY `Medicine Qty` DESC;
 
 
+
+
+-- Q5
+
+-- Problem Statement 1: 
+-- Johansson is trying to prepare a report on patients who have gone through treatments more than once. 
+-- Help Johansson prepare a report that shows the patient's name, the number of treatments they have undergone, 
+-- and their age, Sort the data in a way that the patients who have undergone more treatments appear on top.
+
+
+-- Problem Statement 2:  
+-- Bharat is researching the impact of gender on different diseases, He wants to analyze if a certain disease is 
+-- more likely to infect a certain gender or not.
+-- Help Bharat analyze this by creating a report showing for every disease how many males and females underwent 
+-- treatment for each in the year 2021. It would also be helpful for Bharat if the male-to-female ratio is also shown.
+
+-- Problem Statement 3:  
+-- Kelly, from the Fortis Hospital management, has requested a report that shows for each disease, the top 3 cities that had the most number treatment for that disease.
+-- Generate a report for Kelly’s requirement.
+-- Problem Statement 4: 
+-- Brooke is trying to figure out if patients with a particular disease are preferring some pharmacies over others or not, For this purpose, she has requested a detailed pharmacy report that shows each pharmacy name, and how many prescriptions they have prescribed for each disease in 2021 and 2022, She expects the number of prescriptions prescribed in 2021 and 2022 be displayed in two separate columns.
+-- Write a query for Brooke’s requirement.
+
+-- Problem Statement 5:  
+-- Walde, from Rock tower insurance, has sent a requirement for a report that presents which insurance company is targeting 
+-- the patients of which state the most. 
+-- Write a query for Walde that fulfills the requirement of Walde.
+-- Note: We can assume that the insurance company is targeting a region more if the patients of that region are claiming 
+-- more insurance of that company
+SELECT state,`companyName`, COUNT(`claimID`) 'noOfClaims'
+FROM insurancecompany
+INNER JOIN address USING(`addressID`)
+INNER JOIN insuranceplan USING(`companyID`)
+LEFT JOIN claim USING(UIN)
+GROUP BY state,`companyName`
+ORDER BY state,`companyName`,noOfClaims DESC;
+
+
+
+
+
+
+
+
+--Q6
+
+-- Problem Statement 1: 
+-- The healthcare department wants a pharmacy report on the percentage of hospital-exclusive medicine prescribed in the year 2022.
+-- Assist the healthcare department to view for each pharmacy, the pharmacy id, pharmacy name, total quantity of medicine 
+-- prescribed in 2022, total quantity of hospital-exclusive medicine prescribed by the pharmacy in 2022, and the percentage 
+-- of hospital-exclusive medicine to the total medicine prescribed in 2022.
+-- Order the result in descending order of the percentage found. 
+WITH cte AS (
+    SELECT `pharmacyID`,`pharmacyName`, SUM(quantity) TotalMedicinesPres, 
+    SUM(IF(`hospitalExclusive`='S',quantity,0)) 'Total Hospital Exl'
+    FROM pharmacy
+    LEFT JOIN prescription USING(`pharmacyID`)
+    INNER JOIN contain USING(`prescriptionID`)
+    INNER JOIN medicine USING(`medicineID`)
+    INNER JOIN treatment USING(`treatmentID`)
+    WHERE YEAR(date)=2022
+    GROUP BY `pharmacyID`
+) SELECT *, ROUND(`Total Hospital Exl`/`TotalMedicinesPres`*100,2) 'Percentage' FROM cte;
+
+
+-- Problem Statement 2:  
+-- Sarah, from the healthcare department, has noticed many people do not claim insurance for their treatment. 
+-- She has requested a state-wise report of the percentage of treatments that took place without claiming insurance. 
+-- Assist Sarah by creating a report as per her requirement.
+SELECT state, ROUND(COUNT(`claimID`)/COUNT(`treatmentID`)*100,2) 'Percentage'
+FROM address
+INNER JOIN person p USING (`addressID`)
+INNER JOIN treatment t ON p.`personID`=t.`patientID`
+LEFT JOIN claim USING(`claimID`)
+GROUP BY state
+ORDER BY Percentage DESC;
+
+
+-- Problem Statement 3:  
+-- Sarah, from the healthcare department, is trying to understand if some diseases are spreading in a particular region. 
+-- Assist Sarah by creating a report which shows for each state, the number of the most and least treated diseases by the 
+-- patients of that state in the year 2022. 
+WITH cte AS (
+    SELECT state, `diseaseName`,COUNT(`treatmentID`) 'noOftreatments'
+    FROM address
+    INNER JOIN person p USING (`addressID`)
+    INNER JOIN treatment t ON p.`personID`=t.`patientID`
+    INNER JOIN disease USING(`diseaseID`)
+    GROUP BY state,`diseaseName`
+    ORDER BY state,noOftreatments DESC
+)
+SELECT DISTINCT state, FIRST_VALUE(`diseaseName`) OVER(PARTITION BY state) 'MinDisease',
+FIRST_VALUE(noOftreatments) OVER(PARTITION BY state) 'noOfMINtreatments',
+LAST_VALUE(`diseaseName`) OVER(PARTITION BY state) 'MaxDisease',
+LAST_VALUE(noOftreatments) OVER(PARTITION BY state) 'noOfMAXtreatments'
+FROM cte;
+
+-- Problem Statement 4: 
+-- Manish, from the healthcare department, wants to know how many registered people are registered as patients as well, 
+-- in each city. Generate a report that shows each city that has 10 or more registered people belonging to it and the 
+-- number of patients from that city as well as the percentage of the patient with respect to the registered people.
+SELECT city, COUNT(`personID`) 'noOfPatients',ROUND(COUNT(`patientID`)/COUNT(`personID`)*100,2) "Percentage"
+FROM address
+INNER JOIN person pe USING (`addressID`)
+LEFT JOIN patient pa ON pe.`personID`=pa.`patientID`
+GROUP BY city
+HAVING noOfPatients >10;
+
+
+
+-- Problem Statement 5:  
+-- It is suspected by healthcare research department that the substance “ranitidine” might be causing some side effects. 
+-- Find the top 3 companies using the substance in their medicine so that they can be informed about it.
+SELECT DISTINCT `companyName`
+FROM medicine
+WHERE `substanceName` LIKE '%ranitidina%'
+LIMIT 3;
