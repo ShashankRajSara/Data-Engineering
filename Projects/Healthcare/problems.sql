@@ -1,4 +1,4 @@
--- -- Active: 1671688949427@@127.0.0.1@3308@healthcare
+-- Active: 1671688949427@@127.0.0.1@3308@healthcare
 
 
 --1.
@@ -140,6 +140,19 @@ GROUP BY diseaseId
 HAVING noOfPatients>1;
 
 
+SELECT a.diseaseName, sum(cnt_p)
+FROM
+    (    
+    SELECT d.diseaseName diseaseName,count(t.`patientID`) cnt_p--,COUNT(DISTINCT p.`addressID`)
+    from disease d 
+        JOIN treatment t on t.`diseaseID` = d.`diseaseID`
+        JOIN person p on p.`personID` = t.`patientID`
+    GROUP BY d.`diseaseName`, p.`addressID`
+    HAVING count(t.`patientID`) > 1) a
+GROUP BY a.diseaseName
+;
+
+
 -- Problem Statement 5:  An Insurance company wants a state wise report of the treatments to claim ratio between 
 -- 1st April 2021 and 31st March 2022 (days both included). Assist them to create such a report.
 SELECT state, COUNT(`treatmentID`)/COUNT(`claimID`) AS `treat-claim-ratio`
@@ -152,8 +165,89 @@ GROUP BY state
 ORDER BY `treat-claim-ratio`;
 
 
-SELECT *
+
+-- Q3.
+
+-- Problem Statement 1:  Some complaints have been lodged by patients that they have been prescribed hospital-exclusive medicine 
+-- that they can’t find elsewhere and facing problems due to that. Joshua, from the pharmacy management, wants to get a report 
+-- of which pharmacies have prescribed hospital-exclusive medicines the most in the years 2021 and 2022. Assist Joshua to generate 
+-- the report so that the pharmacies who prescribe hospital-exclusive medicine more often are advised to avoid such practice if possible.   
+with cte as
+(select ph.pharmacyid,count(m.medicineid) as no_of_HEX_medicines,sum(c.quantity) as total_qty from 
+pharmacy ph inner join prescription pr using(pharmacyid)
+inner join treatment t on pr.treatmentid = t.treatmentid
+inner join contain c on  pr.prescriptionid = c.prescriptionID
+inner join medicine m on c.medicineid = m.medicineid
+where m.hospitalExclusive = "S" and (year(t.date) in (2021,2022))
+group by ph.pharmacyid
+)
+select phr.pharmacyname,cte.pharmacyID,cte.no_of_HEX_medicines,cte.total_qty
+from pharmacy phr inner join cte using(pharmacyid)
+order by cte.no_of_HEX_medicines DESC
+limit 20;
+
+with cte as (
+SELECT DISTINCT state,city,COUNT(pharmacyid) OVER(PARTITION BY state,city) AS 'countph'
+FROM pharmacy
+INNER JOIN address USING (`addressID`)
+)
+SELECT state,city, RANK() OVER(PARTITION BY state ORDER BY countph DESC)
+FROM cte
+GROUP BY state,city;
+
+
+-- Problem Statement 2: Insurance companies want to assess the performance of their insurance plans. Generate a report that 
+-- shows each insurance plan, the company that issues the plan, and the number of treatments the plan was claimed for.
+SELECT DISTINCT `companyName`,planName, COUNT(`treatmentID`)
+FROM `insurancecompany`
+INNER JOIN insuranceplan USING (`companyID`)
+LEFT JOIN claim USING (UIN)
+LEFT JOIN treatment USING (`claimID`)
+GROUP BY `companyName`,`planName`
+ORDER BY `companyName`;
+
+
+
+-- Problem Statement 3: Insurance companies want to assess the performance of their insurance plans. Generate a report 
+-- that shows each insurance company's name with their most and least claimed insurance plans.
+with cte AS (SELECT `companyName`,`planName`, COUNT(`claimID`) 'claimCount'
+FROM insurancecompany
+INNER JOIN insuranceplan USING (`companyID`)
+LEFT JOIN claim USING(uin)
+GROUP BY `companyName`,`planName`
+ORDER BY `companyName`,claimCount DESC
+)
+SELECT DISTINCT`companyName`, 
+FIRST_VALUE(`planName`) OVER(PARTITION BY `companyName`) 'MaxClaim',
+LAST_VALUE(`planName`) OVER(PARTITION BY `companyName`) 'MinClaim'
+FROM cte
+ORDER BY `companyName`;
+
+
+-- Problem Statement 4:  The healthcare department wants a state-wise health report to assess which state requires more 
+-- attention in the healthcare sector. Generate a report for them that shows the state name, number of registered people 
+-- in the state, number of registered patients in the state, and the people-to-patient ratio. sort the data by people-to-patient ratio. 
+SELECT state, COUNT(DISTINCT`personID`)/COUNT(`patientID`) AS ppratio
 FROM address
-NATURAL JOIN person;
+INNER JOIN person
+LEFT JOIN patient ON person.`personID`=`patient`.`patientID`
+GROUP BY state
+ORDER BY ppratio DESC;
+
+
+-- Problem Statement 5:  Jhonny, from the finance department of Arizona(AZ), has requested a report 
+-- that lists the total quantity of medicine each pharmacy in his state has prescribed that 
+-- falls under Tax criteria I for treatments that took place in 2021. Assist Jhonny in generating the report. 
+
+SELECT `pharmacyName`, SUM(quantity) 'Medicine Qty'
+FROM address
+INNER JOIN pharmacy USING(`addressID`)
+INNER JOIN prescription USING(`pharmacyID`)
+INNER JOIN contain USING(`prescriptionID`)
+INNER JOIN medicine USING(`medicineID`)
+INNER JOIN treatment USING(`treatmentID`)
+WHERE state='AZ' AND `taxCriteria`='I' AND YEAR(date)=2021
+GROUP BY `pharmacyName`
+ORDER BY `Medicine Qty` DESC;
 
 
