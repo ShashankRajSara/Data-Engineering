@@ -498,14 +498,13 @@ ORDER BY count_trtmnts DESC;
 -- and females underwent treatment for each in the year 2021. It would also be helpful for
 -- Bharat if the male-to-female ratio is also shown.
 
--- EXPLAIN FORMAT = tree
+
 SELECT d.diseaseName, sum(if(p.gender = 'male',1,0)) numOfMales, sum(if(p.gender = 'female',1,0)) numOfFemales, sum(if(p.gender = 'male',1,0))/sum(if(p.gender = 'female',1,0)) males_females_ratio
 FROM disease d
     JOIN treatment t on t.`diseaseID` = d.`diseaseID`
     JOIN person p on p.`personID` = t.`patientID`
 WHERE year(t.`date`) = 2021
-GROUP BY d.`diseaseName`
-;
+GROUP BY d.`diseaseName`;
 
 -- EXPLAIN FORMAT = tree 
 SELECT disease, numOfMales, cnt-numOfMales numOfFemales, numOfMales/(cnt-numOfMales)
@@ -623,6 +622,7 @@ WITH cte AS (
     INNER JOIN person p USING (`addressID`)
     INNER JOIN treatment t ON p.`personID`=t.`patientID`
     INNER JOIN disease USING(`diseaseID`)
+    WHERE YEAR(date)=2022
     GROUP BY state,`diseaseName`
     ORDER BY state,noOftreatments DESC
 )
@@ -659,7 +659,6 @@ LIMIT 3;
 
 -- Q7.
 
-
 -- Problem Statement 1: 
 -- Insurance companies want to know if a disease is claimed higher or lower than average.  
 -- Write a stored procedure that returns “claimed higher than average” or “claimed lower than average” 
@@ -667,9 +666,9 @@ LIMIT 3;
 -- Hint: Find average number of insurance claims for all the diseases. 
 --  If the number of claims for the passed disease is higher than the average return “claimed higher than average” otherwise “claimed lower than average”.
 
+DROP PROCEDURE `diseaseClaims`;
 DELIMITER $$
 
-DROP PROCEDURE `diseaseClaims`;
 CREATE PROCEDURE diseaseClaims(IN disId INT)
 BEGIN
     
@@ -706,6 +705,30 @@ CALL diseaseClaims(1);
 -- if the number is same for both the genders, the value should be ‘same’.
 
 
+DROP PROCEDURE `genderWiseReport`;
+DELIMITER $$
+
+CREATE PROCEDURE genderWiseReport(IN disId INT)
+BEGIN
+    DECLARE nMales INT;
+    DECLARE nFemales INT;
+    DECLARE dName VARCHAR(45);
+
+    SELECT d.diseaseName INTO dName, SUM(if(p.gender = 'male',1,0)) INTO nMales, 
+                SUM(if(p.gender = 'female',1,0)) INTO nFemales
+    FROM disease d 
+    INNER JOIN treatment t on t.`diseaseID` = d.`diseaseID`
+    INNER JOIN person p on p.`personID` = t.`patientID`
+    WHERE d.`diseaseID`=disId;
+
+    SELECT dName,nMales,nFemales, IF(nMales>nFemales,'Males','Females') AS 'Gender';
+END $$
+DELIMITER ;
+
+CALL genderWiseReport(1);
+
+
+
 
 
 
@@ -715,6 +738,11 @@ CALL diseaseClaims(1);
 -- Write a query that finds the top 3 most and top 3 least claimed insurance plans.
 -- The query is expected to return the insurance plan name, the insurance company name which has that plan, 
 -- and whether the plan is the most claimed or least claimed. 
+
+
+
+
+
 
 -- Problem Statement 4: 
 -- The healthcare department wants to know which category of patients is being affected the most by each disease.
@@ -733,3 +761,10 @@ CALL diseaseClaims(1);
 -- Anna wants a report on the pricing of the medicine. She wants a list of the most expensive and most affordable medicines only. 
 -- Assist anna by creating a report of all the medicines which are pricey and affordable, listing the companyName, productName, description, maxPrice, and the price category of each. Sort the list in descending order of the maxPrice.
 -- Note: A medicine is considered to be “pricey” if the max price exceeds 1000 and “affordable” if the price is under 5. Write a query to find 
+
+SELECT diseaseName  dName, SUM(if(p.gender = 'male',1,0))  nMales, 
+SUM(if(p.gender = 'female',1,0))  nFemales
+FROM disease d 
+INNER JOIN treatment t on t.`diseaseID` = d.`diseaseID`
+INNER JOIN person p on p.`personID` = t.`patientID`
+WHERE d.`diseaseID`=1;
