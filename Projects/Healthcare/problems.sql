@@ -669,24 +669,32 @@ LIMIT 3;
 
 DELIMITER $$
 
-
-CREATE PROCEDURE diseaseClaims(IN custId INT)
+DROP PROCEDURE `diseaseClaims`;
+CREATE PROCEDURE diseaseClaims(IN disId INT)
 BEGIN
+    
+    DECLARE avgClaim NUMERIC(12,2);
+    DECLARE avgDisClaim NUMERIC(12,2);
 
- 
+    SELECT AVG(`claimID`) INTO avgClaim
+    FROM claim;
+
+    SELECT AVG(`claimID`) INTO avgDisClaim
+    FROM claim
+    INNER JOIN treatment USING(`claimID`)
+    INNER JOIN disease USING(`diseaseID`)
+    WHERE `diseaseID`=disId;
+
+    IF (avgDisClaim > avgClaim) THEN
+        SELECT disId AS 'disease Id','Claimed Higher than Average' AS 'Claimed';
+    ELSE
+        SELECT disId AS 'disease Id','Claimed Lower than Average' AS 'Claimed';
+    END IF;
 END $$
 
 DELIMITER;
 
-CALL diseaseClaims();
-
-
-
-
-
-
-
-
+CALL diseaseClaims(1);
 
 
 
@@ -694,11 +702,19 @@ CALL diseaseClaims();
 -- Joseph from Healthcare department has requested for an application which helps him get genderwise report for any disease. 
 -- Write a stored procedure when passed a disease_id returns 4 columns,
 -- disease_name, number_of_male_treated, number_of_female_treated, more_treated_gender
--- Where, more_treated_gender is either ‘male’ or ‘female’ based on which gender underwent more often for the disease, if the number is same for both the genders, the value should be ‘same’.
+-- Where, more_treated_gender is either ‘male’ or ‘female’ based on which gender underwent more often for the disease, 
+-- if the number is same for both the genders, the value should be ‘same’.
+
+
+
+
+
+
 -- Problem Statement 3:  
 -- The insurance companies want a report on the claims of different insurance plans. 
 -- Write a query that finds the top 3 most and top 3 least claimed insurance plans.
--- The query is expected to return the insurance plan name, the insurance company name which has that plan, and whether the plan is the most claimed or least claimed. 
+-- The query is expected to return the insurance plan name, the insurance company name which has that plan, 
+-- and whether the plan is the most claimed or least claimed. 
 
 -- Problem Statement 4: 
 -- The healthcare department wants to know which category of patients is being affected the most by each disease.
