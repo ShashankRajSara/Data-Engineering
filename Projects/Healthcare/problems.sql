@@ -603,7 +603,9 @@ WITH cte AS (
 -- Sarah, from the healthcare department, has noticed many people do not claim insurance for their treatment. 
 -- She has requested a state-wise report of the percentage of treatments that took place without claiming insurance. 
 -- Assist Sarah by creating a report as per her requirement.
-SELECT state, ROUND(COUNT(`claimID`)/COUNT(`treatmentID`)*100,2) 'Percentage'
+
+
+SELECT state, ROUND(SUM(IF(claimID IS NULL,1,0))/COUNT(`treatmentID`)*100,2) 'Percentage'
 FROM address
 INNER JOIN person p USING (`addressID`)
 INNER JOIN treatment t ON p.`personID`=t.`patientID`
@@ -667,7 +669,7 @@ LIMIT 3;
 --  If the number of claims for the passed disease is higher than the average return “claimed higher than average” otherwise “claimed lower than average”.
 
 DROP PROCEDURE `diseaseClaims`;
-DELIMITER $$
+DELIMITER //
 
 CREATE PROCEDURE diseaseClaims(IN disId INT)
 BEGIN
@@ -675,21 +677,27 @@ BEGIN
     DECLARE avgClaim NUMERIC(12,2);
     DECLARE avgDisClaim NUMERIC(12,2);
 
-    SELECT AVG(`claimID`) INTO avgClaim
-    FROM claim;
+    WITH cte1 AS (
+        SELECT `diseaseName`,COUNT(claimId) n
+        FROM claim
+        INNER JOIN treatment USING(`claimID`)
+        INNER JOIN disease USING(`diseaseID`)
+        GROUP BY `diseaseName`
+    )
+    SELECT AVG(n) INTO avgClaim FROM cte1;
 
-    SELECT AVG(`claimID`) INTO avgDisClaim
+    SELECT COUNT(`claimID`) INTO avgDisClaim
     FROM claim
     INNER JOIN treatment USING(`claimID`)
     INNER JOIN disease USING(`diseaseID`)
     WHERE `diseaseID`=disId;
 
     IF (avgDisClaim > avgClaim) THEN
-        SELECT disId AS 'disease Id','Claimed Higher than Average' AS 'Claimed';
+        SELECT disId AS 'disease Id',avgDisClaim,'Claimed Higher than Average' AS 'Claimed';
     ELSE
-        SELECT disId AS 'disease Id','Claimed Lower than Average' AS 'Claimed';
+        SELECT disId AS 'disease Id',avgDisClaim,'Claimed Lower than Average' AS 'Claimed';
     END IF;
-END $$
+END //
 
 DELIMITER;
 
@@ -706,7 +714,7 @@ CALL diseaseClaims(1);
 
 
 DROP PROCEDURE `genderWiseReport`;
-DELIMITER $$
+DELIMITER //
 
 CREATE PROCEDURE genderWiseReport(IN disId INT)
 BEGIN
@@ -714,15 +722,17 @@ BEGIN
     DECLARE nFemales INT;
     DECLARE dName VARCHAR(45);
 
-    SELECT d.diseaseName INTO dName, SUM(if(p.gender = 'male',1,0)) INTO nMales, 
-                SUM(if(p.gender = 'female',1,0)) INTO nFemales
+    SELECT d.diseaseName, SUM(IF(p.gender = 'male',1,0)),
+                SUM(if(p.gender = 'female',1,0)) INTO dName,nMales,nFemales
     FROM disease d 
     INNER JOIN treatment t on t.`diseaseID` = d.`diseaseID`
     INNER JOIN person p on p.`personID` = t.`patientID`
-    WHERE d.`diseaseID`=disId;
+    WHERE d.`diseaseID`=disId
+    GROUP BY diseaseName;
 
     SELECT dName,nMales,nFemales, IF(nMales>nFemales,'Males','Females') AS 'Gender';
-END $$
+END //
+
 DELIMITER ;
 
 CALL genderWiseReport(1);
@@ -738,11 +748,6 @@ CALL genderWiseReport(1);
 -- Write a query that finds the top 3 most and top 3 least claimed insurance plans.
 -- The query is expected to return the insurance plan name, the insurance company name which has that plan, 
 -- and whether the plan is the most claimed or least claimed. 
-
-
-
-
-
 
 -- Problem Statement 4: 
 -- The healthcare department wants to know which category of patients is being affected the most by each disease.
@@ -762,9 +767,19 @@ CALL genderWiseReport(1);
 -- Assist anna by creating a report of all the medicines which are pricey and affordable, listing the companyName, productName, description, maxPrice, and the price category of each. Sort the list in descending order of the maxPrice.
 -- Note: A medicine is considered to be “pricey” if the max price exceeds 1000 and “affordable” if the price is under 5. Write a query to find 
 
-SELECT diseaseName  dName, SUM(if(p.gender = 'male',1,0))  nMales, 
-SUM(if(p.gender = 'female',1,0))  nFemales
-FROM disease d 
-INNER JOIN treatment t on t.`diseaseID` = d.`diseaseID`
-INNER JOIN person p on p.`personID` = t.`patientID`
-WHERE d.`diseaseID`=1;
+
+WITH cte1 AS (
+    SELECT `diseaseName`,COUNT(claimId) n
+    FROM claim
+    INNER JOIN treatment USING(`claimID`)
+    INNER JOIN disease USING(`diseaseID`)
+    GROUP BY `diseaseName`
+)
+SELECT AVG(n)  avgClaim FROM cte1
+;
+
+SELECT COUNT(`claimID`)
+FROM claim
+INNER JOIN treatment USING(`claimID`)
+INNER JOIN disease USING(`diseaseID`)
+WHERE `diseaseID`=1;
