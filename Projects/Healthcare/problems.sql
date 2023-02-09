@@ -251,42 +251,111 @@ GROUP BY `pharmacyName`
 ORDER BY `Medicine Qty` DESC;
 
 
+--Q4
+
+
 
 
 -- Q5
 
--- Problem Statement 1: 
--- Johansson is trying to prepare a report on patients who have gone through treatments more than once. 
--- Help Johansson prepare a report that shows the patient's name, the number of treatments they have undergone, 
--- and their age, Sort the data in a way that the patients who have undergone more treatments appear on top.
+-- Problem Statement 1:
+-- Johansson is trying to prepare a report on patients who have gone through treatments more
+-- than once. Help Johansson prepare a report that shows the patient&#39;s name, the number of
+-- treatments they have undergone, and their age, Sort the data in a way that the patients who
+-- have undergone more treatments appear on top.
 
 
--- Problem Statement 2:  
--- Bharat is researching the impact of gender on different diseases, He wants to analyze if a certain disease is 
--- more likely to infect a certain gender or not.
--- Help Bharat analyze this by creating a report showing for every disease how many males and females underwent 
--- treatment for each in the year 2021. It would also be helpful for Bharat if the male-to-female ratio is also shown.
+SELECT  t.`patientID`,p.`personName`, COUNT(t.`treatmentID`) count_trtmnts, TIMESTAMPDIFF(YEAR,pt.dob,CURRENT_DATE), pt.dob
+FROM person p
+    JOIN patient pt on pt.`patientID` = p.`personID`
+    JOIN treatment t on t.`patientID` = p.`personID`
+GROUP BY t.`patientID`,p.`personName`
+HAVING count_trtmnts > 1
+ORDER BY count_trtmnts DESC;
 
--- Problem Statement 3:  
--- Kelly, from the Fortis Hospital management, has requested a report that shows for each disease, the top 3 cities that had the most number treatment for that disease.
+-- SELECT * FROM treatment;
+
+
+-- Problem Statement 2:
+-- Bharat is researching the impact of gender on different diseases, He wants to analyze if a
+-- certain disease is more likely to infect a certain gender or not.
+-- Help Bharat analyze this by creating a report showing for every disease how many males
+-- and females underwent treatment for each in the year 2021. It would also be helpful for
+-- Bharat if the male-to-female ratio is also shown.
+
+-- EXPLAIN FORMAT = tree
+SELECT d.diseaseName, sum(if(p.gender = 'male',1,0)) numOfMales, sum(if(p.gender = 'female',1,0)) numOfFemales, sum(if(p.gender = 'male',1,0))/sum(if(p.gender = 'female',1,0)) males_females_ratio
+FROM disease d
+    JOIN treatment t on t.`diseaseID` = d.`diseaseID`
+    JOIN person p on p.`personID` = t.`patientID`
+WHERE year(t.`date`) = 2021
+GROUP BY d.`diseaseName`
+;
+
+-- EXPLAIN FORMAT = tree 
+SELECT disease, numOfMales, cnt-numOfMales numOfFemales, numOfMales/(cnt-numOfMales)
+FROM (
+    SELECT d.diseaseName disease, sum(if(p.gender = 'male',1,0)) numOfMales, COUNT(*) cnt
+    FROM disease d
+        JOIN treatment t on t.`diseaseID` = d.`diseaseID`
+        JOIN person p on p.`personID` = t.`patientID`
+    WHERE YEAR(t.`date`) = 2021
+    GROUP BY d.`diseaseName`
+    
+) a
+;
+
+
+-- Problem Statement 3:
+-- Kelly, from the Fortis Hospital management, has requested a report that shows for each
+-- disease, the top 3 cities that had the most number treatment for that disease.
 -- Generate a report for Kelly’s requirement.
--- Problem Statement 4: 
--- Brooke is trying to figure out if patients with a particular disease are preferring some pharmacies over others or not, For this purpose, she has requested a detailed pharmacy report that shows each pharmacy name, and how many prescriptions they have prescribed for each disease in 2021 and 2022, She expects the number of prescriptions prescribed in 2021 and 2022 be displayed in two separate columns.
+
+SELECT  disease, city, cnt
+FROM (
+    SELECT d.`diseaseName` disease,a.city city,count(distinct p.`personID`) cnt, DENSE_RANK() OVER(PARTITION BY d.`diseaseName` ORDER BY count(distinct p.`personID`) DESC ) ranks3
+    FROM disease d
+        JOIN treatment t on t.`diseaseID` = d.`diseaseID`
+        JOIN person p on p.`personID` = t.`patientID`
+        JOIN address a on a.`addressID` = p.`addressID`
+    GROUP BY d.`diseaseName`,a.city
+    -- HAVING ranks3 < 4
+    ORDER BY d.`diseaseName`, cnt desc
+
+) a
+WHERE ranks3 < 4
+;
+
+
+
+-- Problem Statement 4:
+-- Brooke is trying to figure out if patients with a particular disease are preferring some
+-- pharmacies over others or not, For this purpose, she has requested a detailed pharmacy
+-- report that shows each pharmacy name, and how many prescriptions they have prescribed
+-- for each disease in 2021 and 2022, She expects the number of prescriptions prescribed in
+-- 2021 and 2022 be displayed in two separate columns.
 -- Write a query for Brooke’s requirement.
 
--- Problem Statement 5:  
--- Walde, from Rock tower insurance, has sent a requirement for a report that presents which insurance company is targeting 
--- the patients of which state the most. 
+
+SELECT ph.`pharmacyName` phrmcyname, d.`diseaseName` disName, 
+        sum(if (year(t.date) = 2021,1,0)), sum(if (year(t.date) = 2022,1,0)) 
+FROM pharmacy ph
+    JOIN prescription pr on pr.`pharmacyID` = ph.`pharmacyID`
+    JOIN treatment t on t.`treatmentID` = pr.`treatmentID`
+    JOIN disease d on d.`diseaseID` = t.`diseaseID`
+WHERE YEAR(t.`date`)  in (2021,2022)
+GROUP BY ph.`pharmacyName`, d.`diseaseName`
+
+;
+
+
+-- Problem Statement 5:
+-- Walde, from Rock tower insurance, has sent a requirement for a report that presents which
+-- insurance company is targeting the patients of which state the most.
 -- Write a query for Walde that fulfills the requirement of Walde.
--- Note: We can assume that the insurance company is targeting a region more if the patients of that region are claiming 
--- more insurance of that company
-SELECT state,`companyName`, COUNT(`claimID`) 'noOfClaims'
-FROM insurancecompany
-INNER JOIN address USING(`addressID`)
-INNER JOIN insuranceplan USING(`companyID`)
-LEFT JOIN claim USING(UIN)
-GROUP BY state,`companyName`
-ORDER BY state,`companyName`,noOfClaims DESC;
+-- Note: We can assume that the insurance company is targeting a region more if the patients
+-- of that region are claiming more insurance of that company.
+
 
 
 
@@ -368,3 +437,44 @@ SELECT DISTINCT `companyName`
 FROM medicine
 WHERE `substanceName` LIKE '%ranitidina%'
 LIMIT 3;
+
+
+
+
+
+-- Q7.
+
+
+-- Problem Statement 1: 
+-- Insurance companies want to know if a disease is claimed higher or lower than average.  
+Write a stored procedure that returns “claimed higher than average” or “claimed lower than average” when the diseaseID is passed to it. 
+-- Hint: Find average number of insurance claims for all the diseases. 
+ If the number of claims for the passed disease is higher than the average return “claimed higher than average” otherwise “claimed lower than average”.
+
+-- Problem Statement 2:  
+-- Joseph from Healthcare department has requested for an application which helps him get genderwise report for any disease. 
+-- Write a stored procedure when passed a disease_id returns 4 columns,
+-- disease_name, number_of_male_treated, number_of_female_treated, more_treated_gender
+-- Where, more_treated_gender is either ‘male’ or ‘female’ based on which gender underwent more often for the disease, if the number is same for both the genders, the value should be ‘same’.
+-- Problem Statement 3:  
+-- The insurance companies want a report on the claims of different insurance plans. 
+-- Write a query that finds the top 3 most and top 3 least claimed insurance plans.
+-- The query is expected to return the insurance plan name, the insurance company name which has that plan, and whether the plan is the most claimed or least claimed. 
+
+-- Problem Statement 4: 
+-- The healthcare department wants to know which category of patients is being affected the most by each disease.
+-- Assist the department in creating a report regarding this.
+-- Provided the healthcare department has categorized the patients into the following category.
+-- YoungMale: Born on or after 1st Jan  2005  and gender male.
+-- YoungFemale: Born on or after 1st Jan  2005  and gender female.
+-- AdultMale: Born before 1st Jan 2005 but on or after 1st Jan 1985 and gender male.
+-- AdultFemale: Born before 1st Jan 2005 but on or after 1st Jan 1985 and gender female.
+-- MidAgeMale: Born before 1st Jan 1985 but on or after 1st Jan 1970 and gender male.
+-- MidAgeFemale: Born before 1st Jan 1985 but on or after 1st Jan 1970 and gender female.
+-- ElderMale: Born before 1st Jan 1970, and gender male.
+-- ElderFemale: Born before 1st Jan 1970, and gender female.
+
+-- Problem Statement 5:  
+-- Anna wants a report on the pricing of the medicine. She wants a list of the most expensive and most affordable medicines only. 
+-- Assist anna by creating a report of all the medicines which are pricey and affordable, listing the companyName, productName, description, maxPrice, and the price category of each. Sort the list in descending order of the maxPrice.
+-- Note: A medicine is considered to be “pricey” if the max price exceeds 1000 and “affordable” if the price is under 5. Write a query to find 
