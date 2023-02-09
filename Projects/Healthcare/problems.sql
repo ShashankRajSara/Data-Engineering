@@ -730,14 +730,12 @@ BEGIN
     WHERE d.`diseaseID`=disId
     GROUP BY diseaseName;
 
-    SELECT dName,nMales,nFemales, IF(nMales>nFemales,'Males','Females') AS 'Gender';
+    SELECT dName,nMales,nFemales, IF(nMales>nFemales,'Male','Female') AS 'Gender';
 END //
 
 DELIMITER ;
 
 CALL genderWiseReport(1);
-
-
 
 
 
@@ -749,10 +747,24 @@ CALL genderWiseReport(1);
 -- The query is expected to return the insurance plan name, the insurance company name which has that plan, 
 -- and whether the plan is the most claimed or least claimed. 
 
+WITH cte AS (
+    SELECT `companyName`,`planName`,COUNT(`claimID`) AS noOfClaims,
+    DENSE_RANK() OVER(ORDER BY COUNT(`claimID`) DESC) AS 'dRank'
+    FROM insuranceplan
+    INNER JOIN claim USING(uin)
+    INNER JOIN insurancecompany USING(`companyID`)
+    GROUP BY `companyName`,`planName`
+)
+(SELECT `companyName`,`planName`, 'Least Claimed' FROM cte ORDER BY dRank DESC LIMIT 3) 
+UNION
+SELECT `companyName`,`planName`,'Most Claimed' FROM cte WHERE dRank<4;
+
+
 -- Problem Statement 4: 
 -- The healthcare department wants to know which category of patients is being affected the most by each disease.
 -- Assist the department in creating a report regarding this.
 -- Provided the healthcare department has categorized the patients into the following category.
+
 -- YoungMale: Born on or after 1st Jan  2005  and gender male.
 -- YoungFemale: Born on or after 1st Jan  2005  and gender female.
 -- AdultMale: Born before 1st Jan 2005 but on or after 1st Jan 1985 and gender male.
@@ -762,24 +774,59 @@ CALL genderWiseReport(1);
 -- ElderMale: Born before 1st Jan 1970, and gender male.
 -- ElderFemale: Born before 1st Jan 1970, and gender female.
 
+DROP FUNCTION patientCategory;
+DELIMITER //
+CREATE FUNCTION patientCategory( gender VARCHAR(10),dob date )
+RETURNS varchar(20)
+DETERMINISTIC
+BEGIN
+   DECLARE cat varchar(20);
+
+    IF dob >= '2005-01-01' THEN
+        SET cat = 'Young';
+    -- Born before 1st Jan 2005 but on or after 1st Jan 1985
+    ELSEIF dob <'2005-01-01'  AND dob >= '1985-01-01' THEN
+        SET cat = 'Adult';
+    ELSEIF dob <'1985-01-01'  AND dob >= '1970-01-01' THEN
+        SET cat = 'MidAge';
+    ELSE
+        SET cat = 'Elder';
+    END IF;
+
+    SET cat = CONCAT(cat,gender);
+    RETURN cat;
+
+END//
+
+DELIMITER ;
+
+
+WITH cte AS (
+SELECT `diseaseName`,patientCategory(gender,dob) AS 'patientCat', COUNT(`diseaseID`) 'num',
+DENSE_RANK() OVER(PARTITION BY `diseaseName` ORDER BY `diseaseName`,COUNT(`diseaseID`) DESC) AS 'dRank'
+FROM patient
+INNER JOIN treatment USING(`patientID`)
+INNER JOIN disease USING(`diseaseID`)
+INNER JOIN person ON person.`personID`=`patient`.`patientID`
+GROUP BY `diseaseName`,patientCat
+ORDER BY `diseaseName`,num DESC
+)
+SELECT `diseaseName`,patientCat,num FROM cte
+WHERE dRank =1;
+
+
 -- Problem Statement 5:  
 -- Anna wants a report on the pricing of the medicine. She wants a list of the most expensive and most affordable medicines only. 
--- Assist anna by creating a report of all the medicines which are pricey and affordable, listing the companyName, productName, description, maxPrice, and the price category of each. Sort the list in descending order of the maxPrice.
--- Note: A medicine is considered to be “pricey” if the max price exceeds 1000 and “affordable” if the price is under 5. Write a query to find 
+-- Assist anna by creating a report of all the medicines which are pricey and affordable, listing the companyName, productName, 
+-- description, maxPrice, and the price category of each. Sort the list in descending order of the maxPrice.
+-- Note: A medicine is considered to be “pricey” if the max price exceeds 1000 and “affordable” if the price is under 5. 
 
-
-WITH cte1 AS (
-    SELECT `diseaseName`,COUNT(claimId) n
-    FROM claim
-    INNER JOIN treatment USING(`claimID`)
-    INNER JOIN disease USING(`diseaseID`)
-    GROUP BY `diseaseName`
-)
-SELECT AVG(n)  avgClaim FROM cte1
-;
-
-SELECT COUNT(`claimID`)
-FROM claim
-INNER JOIN treatment USING(`claimID`)
-INNER JOIN disease USING(`diseaseID`)
-WHERE `diseaseID`=1;
+SELECT `companyName`,`productName`,description,`maxPrice`,
+    CASE
+        WHEN `maxPrice`>1000 THEN 'Pricy'
+        WHEN `maxPrice`<5 THEN 'Affordable'
+        ELSE 'Medium'
+    END AS 'category'
+FROM medicine
+HAVING category IN ('Pricy','Affordable')
+ORDER BY `maxPrice` DESC;
