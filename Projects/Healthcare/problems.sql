@@ -955,18 +955,113 @@ select * from T1
 where totalQuantity > (select avg(totalQuantity) from T1);
 
 --Optimized QUERY
-
-
-
+WITH cte AS (
+select Pharmacy.pharmacyID, Prescription.prescriptionID, sum(quantity) as totalQuantity
+from Pharmacy
+join Prescription on Pharmacy.pharmacyID = Prescription.pharmacyID
+join Contain on Contain.prescriptionID = Prescription.prescriptionID
+join Medicine on Medicine.medicineID = Contain.medicineID
+join Treatment on Treatment.treatmentID = Prescription.treatmentID
+where YEAR(date) = 2022
+group by Pharmacy.pharmacyID, Prescription.prescriptionID
+order by Pharmacy.pharmacyID, Prescription.prescriptionID
+)
+SELECT * FROM cte
+WHERE totalQuantity > (select avg(totalQuantity) from cte);
 
 -- Query 5: 
 
--- -- Select every disease that has 'p' in its name, and 
--- -- the number of times an insurance claim was made for each of them. 
+-- Select every disease that has 'p' in its name, and 
+-- the number of times an insurance claim was made for each of them. 
 
--- SELECT Disease.diseaseName, COUNT(*) as numClaims
--- FROM Disease
--- JOIN Treatment ON Disease.diseaseID = Treatment.diseaseID
--- JOIN Claim On Treatment.claimID = Claim.claimID
--- WHERE diseaseName IN (SELECT diseaseName from Disease where diseaseName LIKE '%p%')
--- GROUP BY diseaseName;
+SELECT diseaseName, COUNT(*) as numClaims
+FROM Disease
+INNER JOIN Treatment USING(diseaseID)
+INNER JOIN Claim USING (`claimID`)
+WHERE diseaseName  LIKE '%p%'
+GROUP BY diseaseName;
+
+
+-- Q9
+
+
+-- Problem Statement 1: 
+-- Brian, the healthcare department, has requested for a report that shows for each state how many people underwent 
+-- treatment for the disease “Autism”.  He expects the report to show the data for each state as well as each gender 
+-- and for each state and gender combination. 
+-- Prepare a report for Brian for his requirement.
+SELECT  state,IFNULL(gender, 'Total') AS Gender, IFNULL(COUNT(`treatmentID`), 'Total') AS 'Total'
+FROM address
+INNER JOIN person USING(`addressID`)
+INNER JOIN patient ON person.`personID`=`patient`.`patientID` 
+INNER JOIN treatment USING(`patientID`)
+INNER JOIN disease USING(`diseaseID`)
+WHERE `diseaseName` = 'Autism'
+GROUP BY state,gender WITH ROLLUP;
+
+
+
+-- Problem Statement 2:  
+-- Insurance companies want to evaluate the performance of different insurance plans they offer. 
+-- Generate a report that shows each insurance plan, the company that issues the plan, and the number of treatments 
+-- the plan was claimed for. The report would be more relevant if the data compares the performance for different 
+-- years(2020, 2021 and 2022) and if the report also includes the total number of claims in the different years, 
+-- as well as the total number of claims for each plan in all 3 years combined.
+
+SELECT `planName`,IFNULL(`companyName`,'Total'), YEAR(date) AS 'year',COUNT(`treatmentID`)
+FROM insurancecompany
+INNER JOIN insuranceplan USING(`companyID`)
+INNER JOIN claim USING(UIN)
+INNER JOIN treatment USING(`claimID`)
+WHERE YEAR(date) IN (2020,2021,2022)
+GROUP BY `planName`,`companyName`,year WITH ROLLUP;
+
+
+
+-- Problem Statement 3:  
+-- Sarah, from the healthcare department, is trying to understand if some diseases are spreading in a particular region. 
+-- Assist Sarah by creating a report which shows each state the number of the most and least treated diseases by the 
+-- patients of that state in the year 2022. It would be helpful for Sarah if the aggregation for the different combinations
+--  is found as well. Assist Sarah to create this report. 
+
+WITH cte AS (
+SELECT state,`diseaseName`,COUNT(`treatmentID`) AS 'noOfTreatments', 
+DENSE_RANK() OVER (PARTITION BY state ORDER BY COUNT(`treatmentID`) DESC RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) 'dRank'
+FROM address
+INNER JOIN person USING(`addressID`)
+INNER JOIN patient ON person.`personID`=`patient`.`patientID` 
+INNER JOIN treatment USING(`patientID`)
+INNER JOIN disease USING(`diseaseID`)
+WHERE YEAR(`date`) = 2022
+GROUP BY state,`diseaseName`
+)
+SELECT state,`diseaseName`,SUM(noOfTreatments) FROM cte
+WHERE dRank =ANY (SELECT MAX(dRank) FROM cte ) OR dRank=1
+GROUP BY state,`diseaseName` WITH ROLLUP;
+
+
+
+WITH cte AS (
+SELECT state,`diseaseName`,COUNT(`treatmentID`) AS 'noOfTreatments', 
+FIRST_VALUE(`diseaseName`) OVER (PARTITION BY state ORDER BY COUNT(`treatmentID`) DESC RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) 'MaxD',
+LAST_VALUE(`diseaseName`) OVER (PARTITION BY state ORDER BY COUNT(`treatmentID`) DESC RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) 'MinD'
+FROM address
+INNER JOIN person USING(`addressID`)
+INNER JOIN patient ON person.`personID`=`patient`.`patientID` 
+INNER JOIN treatment USING(`patientID`)
+INNER JOIN disease USING(`diseaseID`)
+WHERE YEAR(`date`) = 2022
+GROUP BY state,`diseaseName`
+)
+SELECT state,`diseaseName`,noOfTreatments FROM cte
+WHERE `diseaseName` IN ((SELECT MaxD FROM cte),(SELECT MinD FROM cte) )
+;
+
+-- Problem Statement 4: 
+-- Jackson has requested a detailed pharmacy report that shows each pharmacy name, and how many prescriptions they have prescribed for each disease in the year 2022, along with this Jackson also needs to view how many prescriptions were prescribed by each pharmacy, and the total number prescriptions were prescribed for each disease.
+-- Assist Jackson to create this report. 
+
+-- Problem Statement 5:  
+-- Praveen has requested for a report that finds for every disease how many males and females underwent treatment for each in the year 2022. It would be helpful for Praveen if the aggregation for the different combinations is found as well.
+-- Assist Praveen to create this report. 
+
