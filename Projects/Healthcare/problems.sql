@@ -830,3 +830,5 @@ SELECT `companyName`,`productName`,description,`maxPrice`,
 FROM medicine
 HAVING category IN ('Pricy','Affordable')
 ORDER BY `maxPrice` DESC;
+
+newLine;
