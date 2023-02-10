@@ -1065,8 +1065,4 @@ WHERE `diseaseName` IN ((SELECT MaxD FROM cte),(SELECT MinD FROM cte) )
 -- Praveen has requested for a report that finds for every disease how many males and females underwent treatment for each in the year 2022. It would be helpful for Praveen if the aggregation for the different combinations is found as well.
 -- Assist Praveen to create this report. 
 
-shbajhcbda
-
-sw/ca
-c
-git
+SELECT * FROM disease;
