@@ -1056,6 +1056,7 @@ GROUP BY state,`diseaseName`
 SELECT state,`diseaseName`,noOfTreatments FROM cte
 WHERE `diseaseName` IN ((SELECT MaxD FROM cte),(SELECT MinD FROM cte) )
 ;
+
 -- abc
 -- Problem Statement 4: 
 -- Jackson has requested a detailed pharmacy report that shows each pharmacy name, and how many prescriptions they have prescribed for each disease in the year 2022, along with this Jackson also needs to view how many prescriptions were prescribed by each pharmacy, and the total number prescriptions were prescribed for each disease.
@@ -1065,4 +1066,4 @@ WHERE `diseaseName` IN ((SELECT MaxD FROM cte),(SELECT MinD FROM cte) )
 -- Praveen has requested for a report that finds for every disease how many males and females underwent treatment for each in the year 2022. It would be helpful for Praveen if the aggregation for the different combinations is found as well.
 -- Assist Praveen to create this report. 
 
-SELECT * FROM disease;
+SELECT * FROM disease; 
